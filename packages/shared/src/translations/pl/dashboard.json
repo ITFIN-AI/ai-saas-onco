@@ -1,0 +1,135 @@
+{
+  "menu": {
+    "home": "Strona główna",
+    "users": "Użytkownicy",
+    "reports": "Raporty",
+    "subscription": "Subskrypcja",
+    "settings": "Ustawienia",
+    "admin": "Panel administratora"
+  },
+  "help": "Pomoc",
+  "appVersion": "Wersja aplikacji:",
+  "errors": {
+    "cannotFetchNotificationsList": "Nie udało się pobrać listy powiadomień"
+  },
+  "logout": "Wyloguj",
+  "profileDrawer": {
+    "title": "Twój profil"
+  },
+  "tooltip": {
+    "seeProfile": "Zobacz profil"
+  },
+  "notifications": "Powiadomienia",
+  "notificationsDrawer": {
+    "showOnlyUnread": "Pokaż tylko nieodczytane",
+    "emptyState": "Lista notyfikacji jest pusta",
+    "unread": "Nieodczytana",
+    "markAllAsRead": "Oznacz wszystkie jako przeczytane",
+    "notificationType": {}
+  },
+  "home": {
+    "welcomeMessage": "Witaj w Twoim Panelu",
+    "dashboardOverview": "Oto przegląd Twojego konta i ostatniej aktywności",
+    "stats": {
+      "totalUsers": "Liczba Użytkowników",
+      "activeSubscriptions": "Aktywne Subskrypcje",
+      "documentsCreated": "Utworzone Dokumenty",
+      "averageSessionTime": "Śr. Czas Sesji",
+      "fromLastMonth": "od ostatniego miesiąca"
+    },
+    "recentActivity": "Ostatnia Aktywność",
+    "quickActions": "Szybkie Akcje",
+    "actions": {
+      "addNewUser": "Dodaj Nowego Użytkownika",
+      "createReport": "Utwórz Raport",
+      "manageSubscription": "Zarządzaj Subskrypcją",
+      "updateProfile": "Aktualizuj Profil"
+    }
+  },
+  "users": {
+    "title": "Zarządzanie Użytkownikami",
+    "addUser": "Dodaj Użytkownika",
+    "editUser": "Edytuj Użytkownika",
+    "searchUsers": "Szukaj użytkowników...",
+    "confirmDelete": "Czy na pewno chcesz usunąć tego użytkownika?",
+    "deleteWarning": "Tej akcji nie można cofnąć.",
+    "userDeleted": "Użytkownik został pomyślnie usunięty",
+    "userAdded": "Użytkownik został pomyślnie dodany",
+    "userUpdated": "Użytkownik został pomyślnie zaktualizowany",
+    "passwordResetSent": "Link do resetowania hasła został wysłany do użytkownika",
+    "columns": {
+      "user": "Użytkownik",
+      "role": "Rola",
+      "status": "Status",
+      "lastLogin": "Ostatnie Logowanie",
+      "createdAt": "Data Utworzenia",
+      "actions": "Akcje"
+    },
+    "roles": {
+      "admin": "ADMIN",
+      "user": "UŻYTKOWNIK",
+      "editor": "EDYTOR"
+    },
+    "statuses": {
+      "active": "AKTYWNY",
+      "inactive": "NIEAKTYWNY",
+      "pending": "OCZEKUJĄCY"
+    },
+    "actions": {
+      "resetPassword": "Resetuj Hasło"
+    },
+    "validation": {
+      "nameRequired": "Proszę podać nazwę użytkownika",
+      "emailRequired": "Proszę podać email użytkownika",
+      "emailInvalid": "Proszę podać prawidłowy adres email",
+      "roleRequired": "Proszę wybrać rolę",
+      "statusRequired": "Proszę wybrać status"
+    }
+  },
+  "reports": {
+    "title": "Analityka i Raporty",
+    "description": "Przeglądaj szczegółowe analizy i generuj raporty dotyczące używania aplikacji.",
+    "reportTypes": {
+      "userActivity": "Aktywność Użytkowników",
+      "revenue": "Przychody",
+      "documents": "Dokumenty"
+    },
+    "actions": {
+      "download": "Pobierz"
+    },
+    "metrics": {
+      "totalUsers": "Liczba Użytkowników",
+      "totalRevenue": "Całkowity Przychód",
+      "documentsCreated": "Utworzone Dokumenty",
+      "avgSessionTime": "Śr. Czas Sesji",
+      "yearlyGrowth": "roczny wzrost",
+      "targetReached": "rocznego celu",
+      "improvement": "poprawa od zeszłego roku"
+    },
+    "tabs": {
+      "userEngagement": "Zaangażowanie Użytkowników",
+      "revenueAnalysis": "Analiza Przychodów",
+      "topUsers": "Najlepsi Użytkownicy"
+    },
+    "userEngagement": {
+      "title": "Tygodniowa Aktywność Użytkowników",
+      "day": "Dzień",
+      "usersCount": "Użytkownicy",
+      "sessionTime": "Śr. Czas Sesji (min)",
+      "pagesViewed": "Śr. Wyświetlone Strony"
+    },
+    "revenue": {
+      "title": "Miesięczny Przychód",
+      "month": "Miesiąc",
+      "revenue": "Przychód (zł)",
+      "users": "Użytkownicy",
+      "averageRevenue": "Śr. Przychód na Użytkownika (zł)"
+    },
+    "topUsers": {
+      "title": "Najbardziej Aktywni Użytkownicy",
+      "sessions": "Sesje",
+      "averageTime": "Śr. Czas Sesji",
+      "documentsCreated": "Utworzone Dokumenty"
+    }
+  }
+}

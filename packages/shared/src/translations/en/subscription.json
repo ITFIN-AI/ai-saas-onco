@@ -1,0 +1,135 @@
+{
+  "title": "Your plan",
+  "trialWillBeAdded": "The 14-day trial will be activated when you add your first product or you can active them clicking on button below.",
+  "freePlanWillBeAdded": "Free plan will be activated when you add your first product or you can active them clicking on button below.",
+  "changePlan": "Change the plan",
+  "currentPlan": "Current plan",
+  "activateTrial": "Activate the trial",
+  "activateFreePlan": "Activate the free plan",
+  "addPaymentMethodWarning": "Add payment method",
+  "addDefaultPaymentMethod": "To change your current plan, first add a payment method",
+  "addInvoiceData": "To change your current plan, first add invoice data",
+  "cancelSubscriptionToDowngrade": "To downgrade to the free plan cancel current subscription",
+  "changingPlan": "Processing plan update...",
+  "changedPlan": "The plan has been updated correctly. Your account information will be refreshed shortly.",
+  "errorWhenChangingPlan": "An error occurred while changing plan. Please contact with support for more details.",
+  "inactiveSubscription": "You cannot add a new product if you do not have an active subscription",
+  "addProductLockedLimitReached": "You cannot add a new product because you have reached the limit of products in your current plan.",
+  "noPaymentMethod": "To activate your subscription click on the link above \"Manage subscription plan\" and add payment method",
+  "activatePlan": "Activate plan",
+  "setInvoiceDataAlert": "Before you add payment method please add your invoice data",
+  "errors": {
+    "createBillingSession": "Error occured while creating subscription panel. Please contact with support for more details."
+  },
+  "limitIsReached": "The limit in your current plan has been used up. Switch to {{ nextPlan }} to continue using the application.",
+  "planChangeConfirmation": "Plan change confirmation",
+  "changePlanButton": "Change plan",
+  "paymentPlanButton": "Pay and change plan",
+  "paymentTotal": "Total amount: ",
+  "paymentPeriod": "Payment for period: ",
+  "subscription": {
+    "status": "Status",
+    "period": "Current billing period",
+    "manageSubscription": "Manage subscription plan",
+    "goToPlanSelection": "Go to plan selection",
+    "settings": "Settings",
+    "currentPlan": "Current plan"
+  },
+  "statistics": {
+    "title": "Statistics",
+    "paid": "Clients",
+    "products": "Products",
+    "monthlyTransactions": "Transactions in month",
+    "uploadLimit": "Storage"
+  },
+  "plan": {
+    "paid": "customers",
+    "products_0": "product",
+    "products_1": "products",
+    "products_2": "products",
+    "seeFullPricing": "See full pricing",
+    "monthly": "monthly",
+    "month": "Monthly billing",
+    "year": "Annual billing",
+    "monthDesc": "net per month if paid monthly",
+    "yearDesc": "net per month when paid annually",
+    "free": "Free Plan",
+    "basic": "Basic Plan",
+    "standard": "Standard Plan",
+    "professional": "Professional Plan",
+    "custom": "Custom Plan",
+    "uploadLimit": "GB storage",
+    "price": {
+      "pl": {
+        "month": {
+          "free": "0 PLN",
+          "basic": "99 PLN",
+          "standard": "199 PLN",
+          "professional": "399 PLN"
+        },
+        "year": {
+          "free": "0 PLN",
+          "basic": "79 PLN",
+          "standard": "169 PLN",
+          "professional": "329 PLN"
+        }
+      },
+      "intl": {
+        "month": {
+          "free": "$0",
+          "basic": "$29",
+          "standard": "$59",
+          "professional": "$119"
+        },
+        "year": {
+          "free": "$0",
+          "basic": "$25",
+          "standard": "$49",
+          "professional": "$99"
+        }
+      }
+    }
+  },
+  "subscriptionStatus": {
+    "active": "Active",
+    "paid": "Paid",
+    "past_due": "Delayed payment",
+    "incomplete_expired": "Incomplete - expired",
+    "trialing": "Trial period",
+    "incomplete": "Incomplete",
+    "canceled": "Canceled",
+    "unpaid": "Unpaid",
+    "imported": "Imported",
+    "expired": "No access (end of paid period)",
+    "archived": "No access (refund)"
+  },
+  "invoice": {
+    "title": "Invoice details",
+    "formTitle": "Edit details",
+    "email": "Email",
+    "emailHelp": "Email address where the invoice will be sent",
+    "firstName": "First name",
+    "firstNamePlaceholder": "Enter your first name",
+    "lastName": "Last name",
+    "lastNamePlaceholder": "Enter your last name",
+    "nip": {
+      "name": "VAT ID",
+      "placeholder": "VAT ID number",
+      "success": "Company details have been filled",
+      "loading": "Fetching company details...",
+      "rejected": "An error occurred while fetching data. Please try again or fill in the form manually.",
+      "notFound": "Could not find company details. Please check if the VAT ID is correct or fill in the form manually.",
+      "help": "Details will be fetched automatically"
+    },
+    "companyName": "Company name",
+    "companyNamePlaceholder": "Enter your company name",
+    "street": "Street",
+    "streetPlaceholder": "Street name, building number / apartment number",
+    "postalCode": "Postal code",
+    "postalCodePlaceholder": "Postal code",
+    "city": "City",
+    "cityPlaceholder": "City",
+    "country": "Country",
+    "countryPlaceholder": "Select country"
+  }
+}

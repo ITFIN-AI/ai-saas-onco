@@ -1,0 +1,141 @@
+{
+  "menu": {
+    "home": "Home",
+    "users": "Users",
+    "reports": "Reports",
+    "subscription": "Subscription",
+    "settings": "Settings",
+    "admin": "Admin panel"
+  },
+  "help": "Help",
+  "appVersion": "App version:",
+  "errors": {
+    "cannotFetchNotificationsList": "The notification list could not be retrieved."
+  },
+  "logout": "Logout",
+  "profileDrawer": {
+    "title": "Your profile"
+  },
+  "tooltip": {
+    "seeProfile": "View profile"
+  },
+  "notifications": "Notifications",
+  "notificationsDrawer": {
+    "showOnlyUnread": "Show only unread",
+    "emptyState": "The notification list is empty",
+    "unread": "Unread",
+    "markAllAsRead": "Mark all as read",
+    "notificationType": {}
+  },
+  "home": {
+    "welcomeMessage": "Welcome to your Dashboard",
+    "dashboardOverview": "Here's an overview of your account and recent activity",
+    "stats": {
+      "totalUsers": "Total Users",
+      "activeSubscriptions": "Active Subscriptions",
+      "documentsCreated": "Documents Created",
+      "averageSessionTime": "Avg. Session Time",
+      "fromLastMonth": "from last month"
+    },
+    "recentActivity": "Recent Activity",
+    "quickActions": "Quick Actions",
+    "actions": {
+      "addNewUser": "Add New User",
+      "createReport": "Create Report",
+      "manageSubscription": "Manage Subscription",
+      "updateProfile": "Update Profile"
+    }
+  },
+  "users": {
+    "title": "Users Management",
+    "addUser": "Add User",
+    "editUser": "Edit User",
+    "searchUsers": "Search users...",
+    "confirmDelete": "Are you sure you want to delete this user?",
+    "deleteWarning": "This action cannot be undone.",
+    "userDeleted": "User has been deleted successfully",
+    "userAdded": "User has been added successfully",
+    "userUpdated": "User has been updated successfully",
+    "passwordResetSent": "Password reset link has been sent to the user",
+    "columns": {
+      "user": "User",
+      "role": "Role",
+      "status": "Status",
+      "lastLogin": "Last Login",
+      "createdAt": "Created At",
+      "actions": "Actions"
+    },
+    "roles": {
+      "admin": "ADMIN",
+      "user": "USER",
+      "editor": "EDITOR"
+    },
+    "statuses": {
+      "active": "ACTIVE",
+      "inactive": "INACTIVE",
+      "pending": "PENDING"
+    },
+    "actions": {
+      "resetPassword": "Reset Password"
+    },
+    "validation": {
+      "nameRequired": "Please enter user name",
+      "emailRequired": "Please enter user email",
+      "emailInvalid": "Please enter a valid email",
+      "roleRequired": "Please select a role",
+      "statusRequired": "Please select a status"
+    }
+  },
+  "reports": {
+    "title": "Analytics & Reports",
+    "description": "View detailed analytics and generate reports for your application usage.",
+    "reportTypes": {
+      "userActivity": "User Activity",
+      "revenue": "Revenue",
+      "documents": "Documents"
+    },
+    "actions": {
+      "download": "Download"
+    },
+    "metrics": {
+      "totalUsers": "Total Users",
+      "totalRevenue": "Total Revenue",
+      "documentsCreated": "Documents Created",
+      "avgSessionTime": "Avg. Session Time",
+      "yearlyGrowth": "yearly growth",
+      "targetReached": "of yearly target",
+      "improvement": "improvement from last year"
+    },
+    "tabs": {
+      "userEngagement": "User Engagement",
+      "revenueAnalysis": "Revenue Analysis",
+      "topUsers": "Top Users"
+    },
+    "userEngagement": {
+      "title": "Weekly User Activity",
+      "day": "Day",
+      "usersCount": "Users",
+      "sessionTime": "Avg. Session Time (mins)",
+      "pagesViewed": "Avg. Pages Viewed"
+    },
+    "revenue": {
+      "title": "Monthly Revenue",
+      "month": "Month",
+      "revenue": "Revenue ($)",
+      "users": "Users",
+      "averageRevenue": "Avg. Revenue per User ($)"
+    },
+    "topUsers": {
+      "title": "Most Active Users",
+      "sessions": "Sessions",
+      "averageTime": "Avg. Session Time",
+      "documentsCreated": "Documents Created"
+    }
+  },
+  "admin": {
+    "section": {
+      "title": "Admin Control Panel"
+    },
+    "description": "This section is restricted to administrators only."
+  }
+}

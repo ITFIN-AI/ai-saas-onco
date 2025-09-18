@@ -1,0 +1,9 @@
+@import 'src/theme/variables';
+
+.stepper {
+  display: none;
+
+  @media (min-width: $lg-break-point) {
+    display: flex;
+  }
+}

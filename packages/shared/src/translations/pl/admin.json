@@ -1,0 +1,22 @@
+{
+  "title": "Panel Administratora",
+  "description": "Ta sekcja jest dostępna tylko dla administratorów.",
+  "tabs": {
+    "notifications": "Powiadomienia",
+    "users": "Użytkownicy",
+    "settings": "Ustawienia"
+  },
+  "broadcast": {
+    "title": "Wyślij powiadomienie do wszystkich",
+    "form": {
+      "title": "Tytuł Wiadomości",
+      "titleRequired": "Wprowadź tytuł",
+      "message": "Treść Wiadomości",
+      "messageRequired": "Wprowadź treść wiadomości",
+      "url": "Opcjonalny URL",
+      "emojiIcon": "Opcjonalna Ikona Emoji",
+      "submit": "Wyślij Wiadomość",
+      "reset": "Resetuj Formularz"
+    }
+  }
+}

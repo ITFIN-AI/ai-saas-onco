@@ -1,0 +1,39 @@
+.container {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.formContainer {
+  min-width: 350px;
+  max-width: 500px;
+}
+
+.register {
+  display: flex;
+  justify-content: center;
+}
+
+.registerClaim {
+  margin-right: 5px;
+}
+
+.claim {
+  text-align: center;
+}
+
+.alert {
+  text-align: center;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.header {
+  padding-bottom: 20px;
+}
+
+.required {
+  color: red;
+}

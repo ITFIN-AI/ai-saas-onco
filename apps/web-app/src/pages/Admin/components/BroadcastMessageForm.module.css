@@ -1,0 +1,28 @@
+.emoji-picker-container {
+  width: 352px;
+  height: 435px;
+  overflow: hidden;
+}
+
+.emoji-picker-container :global(.emoji-mart) {
+  width: 100% !important;
+  height: 100% !important;
+  border: none !important;
+  border-radius: 8px !important;
+}
+
+.emoji-picker-container :global(.emoji-mart-search) {
+  display: none !important;
+}
+
+.emoji-picker-container :global(.emoji-mart-category-label) {
+  display: none !important;
+}
+
+.emoji-picker-container :global(.emoji-mart-bar) {
+  border: none !important;
+}
+
+.emoji-picker-container :global(.emoji-mart-scroll) {
+  height: 100% !important;
+}

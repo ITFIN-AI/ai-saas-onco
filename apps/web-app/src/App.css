@@ -1,0 +1,121 @@
+html,
+body {
+  height: 100% !important;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+#ac-footer {
+  display: none !important;
+}
+
+img {
+  display: unset !important;
+}
+
+audio,
+canvas,
+embed,
+iframe,
+img,
+object,
+svg,
+video {
+  vertical-align: unset;
+}
+
+.custom-dragger .ant-upload-drag-container {
+  display: flex;
+  height: 100%;
+}
+
+.custom-dragger .ant-upload-btn {
+  height: unset !important;
+}
+
+.drag-table .ant-col {
+  position: relative;
+}
+
+.upload-bg {
+  background: #fafafa;
+  border: 1px dashed #d9d9d9;
+  border-radius: 2px;
+}
+
+.sketch-picker {
+  box-shadow: none !important;
+  border: 1px solid lightgray;
+}
+
+.sketch-picker > div:first-child {
+  padding-bottom: 40% !important;
+}
+
+.radius-radio .ant-radio-button-wrapper:before {
+  background-color: transparent !important;
+  width: 0 !important;
+  display: none !important;
+}
+
+.radius-radio .ant-radio-button-wrapper {
+  border-left-width: 1px;
+}
+
+.ant-alert-action {
+    margin-left: 8px;
+}
+
+.ant-table-cell .ant-typography {
+  white-space: nowrap;
+  overflow-wrap: break-word;
+  text-overflow: ellipsis;
+}

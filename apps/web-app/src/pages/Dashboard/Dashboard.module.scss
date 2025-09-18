@@ -1,0 +1,78 @@
+@import 'src/theme/variables';
+
+.logo {
+  height: 30px;
+  margin: 16px;
+  transition: 0.3s opacity ease;
+}
+
+.logoContainer {
+  background: #000;
+}
+
+.header {
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgb(235, 237, 243);
+  position: relative;
+}
+
+.footer {
+  text-align: center;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.alerts {
+  position: relative;
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  justify-content: flex-end;
+}
+
+.avatar {
+  background: $success-color-light;
+  color: $success-color;
+  cursor: pointer;
+}
+
+.searchContainer {
+  min-width: 300px;
+  margin-left: 10px;
+}
+
+.notificationIcon {
+  font-size: 30px;
+  transition: transform 0.4s;
+
+  &:hover {
+    transform: rotate(20deg);
+  }
+}
+
+.notifications {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  margin-left: 35px;
+}
+
+.switch {
+  background-color: #b5b5c3 !important;
+}
+
+.sider {
+  border-right: 1px solid #e8e8e8;
+  background-color: #ffffff;
+  overflow: auto;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+}

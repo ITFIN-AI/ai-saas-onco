@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "develop": "akademiasaas-boiler",
+    "production": "akademiasaas-boiler-production"
+  },
+  "targets": {},
+  "dataconnectEmulatorConfig": {}
+}

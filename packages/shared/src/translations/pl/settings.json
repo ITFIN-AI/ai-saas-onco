@@ -1,0 +1,46 @@
+{
+  "title": "Ustawienia",
+  "account": {
+    "title": "Konto"
+  },
+  "contactEmail": {
+    "email": "Kontaktowy adres email",
+    "setEmail": "Ustaw kontaktowy adres email",
+    "emailSetSuccess": "Pomyślnie ustawiony kontaktowy adres email",
+    "save": "Zapisz"
+  },
+  "additionalIntegrations": {
+    "title": "Dodatkowe integracje"
+  },
+  "apiIntegration": {
+    "copySuccess": "Klucz API skopiowany do schowka",
+    "disabled": "Integracja API jest wyłączona dla Twojego konta. Skontaktuj się z nami, aby uzyskać dostęp do tej funkcji.",
+    "title": "Klucze API",
+    "empty": "Brak kluczy API",
+    "name": "Nazwa",
+    "namePlaceholder": "Nazwa identyfikująca klucz API",
+    "status": "Status",
+    "active": "Aktywny",
+    "expired": "Wygasł",
+    "expiresIn": "Ważny przez",
+    "expiresAt": "Ważny do",
+    "days_0": "{{count}} dzień",
+    "days_1": "{{count}} dni",
+    "days_2": "{{count}} dni",
+    "indefinitely": "Bezterminowo",
+    "created": "Utworzony",
+    "options": "Opcje",
+    "delete": "Usuń",
+    "deleteWarning": "Czy na pewno chcesz usunąć ten klucz API?",
+    "deleteProgress": "Usuwanie klucza API...",
+    "deleteSuccess": "Klucz API został usunięty",
+    "deleteFailure": "Nie udało się usunąć klucza API",
+    "create": "Dodaj nowy klucz API",
+    "createSuccess": "Klucz API został utworzony",
+    "createSuccessDescription": "Zapisz klucz API w bezpiecznym miejscu. Po zamknięciu tego okna nie będzie możliwości jego odczytania.",
+    "createFailure": "Nie udało się utworzyć klucza API",
+    "instruction": {
+      "title": "Przeczytaj instrukcje"
+    }
+  }
+}

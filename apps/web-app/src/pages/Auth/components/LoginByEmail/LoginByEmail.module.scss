@@ -1,0 +1,48 @@
+.container {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.formContainer {
+  min-width: 350px;
+}
+
+.register {
+  display: flex;
+  justify-content: center;
+}
+
+.registerClaim {
+  margin-left: 5px;
+}
+
+.claim {
+  text-align: center;
+}
+
+.alert {
+  text-align: center;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.header {
+  padding-bottom: 20px;
+}
+
+.forgotPassword {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.forgotPasswordLink {
+  flex-basis: 60%;
+}
+
+.submitButton {
+  flex-basis: 30%;
+}

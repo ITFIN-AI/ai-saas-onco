@@ -1,0 +1,22 @@
+{
+  "title": "Admin Panel",
+  "description": "This section is only available to administrators.",
+  "tabs": {
+    "notifications": "Notifications",
+    "users": "Users",
+    "settings": "Settings"
+  },
+  "broadcast": {
+    "title": "Send notification to everyone",
+    "form": {
+      "title": "Message Title",
+      "titleRequired": "Please enter a title",
+      "message": "Message Content",
+      "messageRequired": "Please enter a message",
+      "url": "Optional URL",
+      "emojiIcon": "Optional Emoji Icon",
+      "submit": "Send Message",
+      "reset": "Reset Form"
+    }
+  }
+}

@@ -1,0 +1,85 @@
+@import './theme/css-preflight.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.centered.ant-collapse>.ant-collapse-item>.ant-collapse-header {
+  align-items: center;
+}
+
+.centered .ant-collapse-expand-icon {
+  display: flex;
+}
+
+.markdown {
+  font-size: 0.875rem;
+}
+
+.markdown-editor {
+  font-size: 1rem;
+}
+
+.markdown p {
+  margin-bottom: 0.5rem;
+}
+
+.markdown-editor p {
+  margin-bottom: 1rem;
+}
+
+.markdown ul {
+  list-style: initial;
+  padding-left: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.markdown ol {
+  list-style: initial;
+  list-style-type: decimal;
+  padding-left: 1.6rem;
+  margin-bottom: 1rem;
+}
+
+.markdown li {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.markdown-editor h1,
+.markdown-editor h2,
+.markdown-editor h3,
+.markdown-editor h4,
+.markdown-editor h5,
+.markdown-editor h6 {
+  margin-bottom: 1rem;
+}
+
+.markdown blockquote {
+  border-left-width: 0.3rem;
+  padding-left: 0.6rem;
+  font-style: italic;
+}
+
+.markdown-container [role='toolbar'] {
+  position: sticky;
+  top: 64px;
+}
+
+.markdown-readonly [title='Edit image'] {
+  display: none;
+}
+
+.sp-read-only {
+  display: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 500;
+  margin-bottom: .5em;
+  margin-top: 0;
+}

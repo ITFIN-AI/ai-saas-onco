@@ -1,0 +1,51 @@
+.container {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.formContainer {
+  width: 350px;
+}
+
+.register {
+  display: flex;
+  justify-content: center;
+}
+
+.registerClaim {
+  margin-left: 5px;
+}
+
+.claim {
+  text-align: center;
+}
+
+.alert {
+  text-align: center;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.header {
+  padding-bottom: 20px;
+}
+
+.sendForm {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mainLink {
+  flex-basis: 60%;
+  button {
+    padding-left: 0;
+  }
+}
+
+.submitButton {
+  flex-basis: 30%;
+}

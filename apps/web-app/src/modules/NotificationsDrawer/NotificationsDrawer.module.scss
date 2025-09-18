@@ -1,0 +1,30 @@
+.drawerTitleContainer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;
+}
+
+.drawerTitle {
+  margin: 0 10px 0 8px;
+}
+
+.body {
+  padding: 12px;
+  height: auto;
+}
+
+.icon {
+  font-size: 20px;
+  margin-top: -2px;
+}
+
+.switch {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.switchLabel {
+  margin-left: 8px;
+  font-size: 13px;
+}

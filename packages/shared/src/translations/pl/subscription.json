@@ -1,0 +1,136 @@
+{
+  "title": "Twoja subskrypcja",
+  "trialWillBeAdded": "14 dniowy trial zostanie aktywowany po dodaniu pierwszego produktu lub możesz go aktywować klikając w przycisk poniżej.",
+  "freePlanWillBeAdded": "Darmowy plan zostanie aktywowany po dodaniu pierwszego produktu lub możesz go aktywować klikając w przycisk poniżej.",
+  "changePlan": "Zmień plan",
+  "currentPlan": "Aktualny plan",
+  "activateTrial": "Aktywuj trial",
+  "activateFreePlan": "Aktywuj darmowy plan",
+  "addPaymentMethodWarning": "Dodaj metodę płatności",
+  "addDefaultPaymentMethod": "Aby zmienić aktualny plan dodaj najpierw metodę płatności",
+  "addInvoiceData": "Aby zmienić aktualny plan dodaj najpierw dane do faktury",
+  "cancelSubscriptionToDowngrade": "Aby przejść na darmowy plan anuluj obecną subskrypcję",
+  "changingPlan": "Przetwarzamy zmianę planu...",
+  "changedPlan": "Plan został poprawnie zaktualizowany. Dane Twojego konta zostaną za chwile odświeżone.",
+  "errorWhenChangingPlan": "Wystąpił błąd podczas zmiany planu. Skontaktuj się z supportem w celu wyjaśnienia.",
+  "inactiveSubscription": "Nie możesz dodać nowego produktu jeśli nie masz aktywnej subskrypcji",
+  "addProductLockedLimitReached": "Nie możesz dodać nowego produktu ponieważ osiągnąłeś limit w obecnym planie.",
+  "activatePlan": "Aktywuj plan",
+  "noPaymentMethod": "Aby aktywować subskrypcje kliknij powyżej w link \"Zarządzaj subskrypcją\" i dodaj metodę płatności",
+  "limitIsReached": "Limit w obecnym planie został wykorzystany. Przejdź na {{ nextPlan }} aby móc dalej korzystać z aplikacji.",
+  "setInvoiceDataAlert": "Przed dodaniem metody płatności potrzebujemy danych do faktury. Kliknij edytuj i wprowadź dane.",
+  "planChangeConfirmation": "Potwierdzenie zmiany planu",
+  "changePlanButton": "Zmień plan",
+  "paymentPlanButton": "Zapłać i zmień plan",
+  "paymentTotal": "Koszt całkowity: ",
+  "paymentPeriod": "Płatność za okres: ",
+  "errors": {
+    "createBillingSession": "Błąd podczas generowania panelu subskrypcji. Skontaktuj się z supportem w celu wyjaśnienia."
+  },
+  "subscription": {
+    "status": "Status",
+    "period": "Czas trwania",
+    "manageSubscription": "Zarządzaj subskrypcją",
+    "goToPlanSelection": "Przejdź do wyboru planu",
+    "settings": "Ustawienia",
+    "currentPlan": "Obecny plan"
+  },
+  "statistics": {
+    "title": "Statystyki",
+    "paid": "Klienci",
+    "products": "Produkty",
+    "monthlyTransactions": "Transakcje w miesiącu",
+    "uploadLimit": "Upload wideo"
+  },
+  "plan": {
+    "paid": "klientów",
+    "products_0": "produkt",
+    "products_1": "produkty",
+    "products_2": "produktów",
+    "monthlyTransactions": "transakcji w miesiącu",
+    "seeFullPricing": "Zobacz pełny cennik",
+    "monthly": "miesięcznie",
+    "month": "Rozliczenie miesięczne",
+    "year": "Rozliczenie roczne",
+    "monthDesc": "netto za miesiąc przy płatności miesięcznej",
+    "yearDesc": "netto za miesiąc przy płatności za rok",
+    "free": "Plan Darmowy",
+    "basic": "Plan Podstawowy",
+    "standard": "Plan Standardowy",
+    "professional": "Plan Profesjonalny",
+    "custom": "Plan Indywidualny",
+    "uploadLimit": "GB na pliki wideo",
+    "price": {
+      "pl": {
+        "month": {
+          "10/100/1/50/10": "0 PLN",
+          "100/1000/5/500/100": "99 PLN",
+          "500/5000/25/5000/200": "199 PLN",
+          "10000/25000/100/25000/750": "399 PLN"
+        },
+        "year": {
+          "10/100/1/50/10": "0 PLN",
+          "100/1000/5/500/100": "79 PLN",
+          "500/5000/25/5000/200": "169 PLN",
+          "10000/25000/100/25000/750": "329 PLN"
+        }
+      },
+      "intl": {
+        "month": {
+          "10/100/1/50/10": "$0",
+          "100/1000/5/500/100": "$29",
+          "500/5000/25/5000/200": "$59",
+          "10000/25000/100/25000/750": "$119"
+        },
+        "year": {
+          "10/100/1/50/10": "$0",
+          "100/1000/5/500/100": "$25",
+          "500/5000/25/5000/200": "$49",
+          "10000/25000/100/25000/750": "$99"
+        }
+      }
+    }
+  },
+  "subscriptionStatus": {
+    "active": "Aktywna",
+    "paid": "Opłacona",
+    "past_due": "Opóźniona płatność",
+    "incomplete_expired": "Niekompletna - wygaśnięta",
+    "trialing": "Okres próbny",
+    "incomplete": "Niekompletna",
+    "canceled": "Anulowana",
+    "unpaid": "Nieopłacona",
+    "imported": "Zaimportowany",
+    "expired": "Brak dostępu (koniec opłaconego okresu)",
+    "archived": "Brak dostępu (zwrot)"
+  },
+  "invoice": {
+    "title": "Dane do faktury",
+    "formTitle": "Edytuj dane",
+    "email": "Email",
+    "emailHelp": "Email na który zostanie wysłana faktura",
+    "firstName": "Imię",
+    "firstNamePlaceholder": "Podaj swoje imię",
+    "lastName": "Nazwisko",
+    "lastNamePlaceholder": "Podaj swoje nazwisko",
+    "nip": {
+      "name": "NIP",
+      "placeholder": "Numer NIP",
+      "success": "Dane firmy zostały uzupełnione",
+      "loading": "Pobieram dane firmy...",
+      "rejected": "Wystąpił błąd podczas pobierania danych. Spróbuj ponownie lub uzupełnij formularz ręcznie.",
+      "notFound": "Nie udało się wyszukać danych firmy. Sprawdź poprawność NIP lub uzupełnij formularz ręcznie.",
+      "help": "Dane zostaną pobrane automatycznie"
+    },
+    "companyName": "Nazwa firmy",
+    "companyNamePlaceholder": "Wprowadź nazwę swojej firmy",
+    "street": "Ulica",
+    "streetPlaceholder": "Nazwa ulicy, numer budynku / numer lokalu",
+    "postalCode": "Kod pocztowy",
+    "postalCodePlaceholder": "Kod pocztowy",
+    "city": "Miasto",
+    "cityPlaceholder": "Miasto",
+    "country": "Kraj",
+    "countryPlaceholder": "Wybierz kraj"
+  }
+}

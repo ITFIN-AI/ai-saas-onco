@@ -1,0 +1,46 @@
+{
+  "title": "Settings",
+  "account": {
+    "title": "Account"
+  },
+  "contactEmail": {
+    "email": "Contact email address",
+    "setEmail": "Set contact email address",
+    "emailSetSuccess": "Successfully set contact email address",
+    "save": "Save"
+  },
+  "additionalIntegrations": {
+    "title": "Additional integration"
+  },
+  "apiIntegration": {
+    "copySuccess": "API key copied to clipboard",
+    "disabled": "API integration is disabled for your account. Contact us, to get access to this feature.",
+    "title": "API key",
+    "empty": "No API keys",
+    "name": "Name",
+    "namePlaceholder": "Name that identifies the API key",
+    "status": "Status",
+    "active": "Active",
+    "expired": "Expired",
+    "expiresIn": "Expires in",
+    "expiresAt": "Expires at",
+    "days_0": "{{count}} day",
+    "days_1": "{{count}} days",
+    "days_2": "{{count}} days",
+    "indefinitely": "Indefinitely",
+    "created": "Created",
+    "options": "Options",
+    "delete": "Delete",
+    "deleteWarning": "Are you sure you want to delete this API key?.",
+    "deleteProgress": "Deleting API key...",
+    "deleteSuccess": "API key deleted",
+    "deleteFailure": "Failed to delete API key",
+    "create": "Create new API key",
+    "createSuccess": "API key created",
+    "createSuccessDescription": "Save the API key in a safe place. After closing this window, it will not be possible to read it.",
+    "createFailure": "Failed to create API key",
+    "instruction": {
+      "title": "Check instruction"
+    }
+  }
+}

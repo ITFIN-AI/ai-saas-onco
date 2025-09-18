@@ -1,0 +1,22 @@
+.idea/
+/node_modules
+lerna-debug.log
+.vscode/
+.DS_Store
+firestore-debug.log
+firebase-debug.log
+ui-debug.log
+.firebase/*
+env_vars.dev.yaml
+database-debug.log
+firestore-debug.log
+pubsub-debug.log
+#yarn log files
+.yarn
+.yarnrc
+.yarnrc.yml
+yarn-error.log
+apps/web-app/tsconfig.tsbuildinfo
+/scripts/*.csv
+.turbo
+/emulator-data
