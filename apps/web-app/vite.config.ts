@@ -12,6 +12,7 @@ export default defineConfig({
   },
   server: {
     port: 3000,
+    host: '0.0.0.0', // Allow access from outside container
   },
   optimizeDeps: {
     include: ['**/*.scss'], // Include all .scss files
@@ -40,6 +41,8 @@ export default defineConfig({
   ],
   define: {
     'import.meta.env.APP_VERSION': JSON.stringify(process.env.npm_package_version),
+    // Force Firebase emulator host for Docker environment
+    'import.meta.env.VITE_FIREBASE_EMULATOR_HOST': JSON.stringify(process.env.VITE_FIREBASE_EMULATOR_HOST || 'firebase'),
   },
   resolve: {
     alias: {

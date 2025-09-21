@@ -26,10 +26,16 @@ const {
   VITE_FIREBASE_APP_ID,
   VITE_FIREBASE_MEASUREMENT_ID,
   VITE_FIREBASE_EMULATOR,
+  VITE_FIREBASE_EMULATOR_HOST,
   VITE_POSTHOG_API_KEY,
   VITE_USE_ANALYTICS,
   VITE_USE_PERFORMANCE_MONITORING,
 } = import.meta.env;
+
+// Debug: Log all environment variables
+console.log('DEBUG: All import.meta.env:', import.meta.env);
+console.log('DEBUG: VITE_FIREBASE_EMULATOR:', VITE_FIREBASE_EMULATOR);
+console.log('DEBUG: VITE_FIREBASE_EMULATOR_HOST:', VITE_FIREBASE_EMULATOR_HOST);
 
 export const firebaseConfig = {
   apiKey: VITE_FIREBASE_API_KEY,
@@ -53,11 +59,21 @@ if (!firebase.apps.length) {
   if (VITE_FIREBASE_EMULATOR === 'true') {
     // eslint-disable-next-line no-console
     console.warn('Running on Firebase emulator!');
-    db.useEmulator('localhost', 8080);
-    firebase.auth().useEmulator('http://127.0.0.1:9099/');
-    functions.useEmulator('localhost', 5001);
-    storage.useEmulator('localhost', 9199);
-    firebase.database().useEmulator('localhost', 9000);
+    
+    // Use environment variable for emulator host, with fallback to 'firebase' for Docker
+    // Since we're running in Docker, default to 'firebase' service name
+    const emulatorHost = VITE_FIREBASE_EMULATOR_HOST || 'firebase';
+    
+    // eslint-disable-next-line no-console
+    console.log('Firebase emulator host:', emulatorHost);
+    // eslint-disable-next-line no-console
+    console.log('All VITE env vars:', { VITE_FIREBASE_EMULATOR, VITE_FIREBASE_EMULATOR_HOST });
+    
+    db.useEmulator(emulatorHost, 8080);
+    firebase.auth().useEmulator(`http://${emulatorHost}:9099/`);
+    functions.useEmulator(emulatorHost, 5001);
+    storage.useEmulator(emulatorHost, 9199);
+    firebase.database().useEmulator(emulatorHost, 9000);
   }
 }
 

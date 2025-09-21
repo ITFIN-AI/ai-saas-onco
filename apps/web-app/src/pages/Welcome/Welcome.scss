@@ -1,0 +1,713 @@
+// NIO-inspired color palette
+$primary-red: #d32f2f;
+$primary-red-hover: #b71c1c;
+$primary-red-light: #ffebee;
+$text-primary: #2c2c2c;
+$text-secondary: #666666;
+$text-light: #999999;
+$background-light: #fafafa;
+$background-white: #ffffff;
+$border-color: #e0e0e0;
+$shadow-light: rgba(0, 0, 0, 0.08);
+$shadow-medium: rgba(0, 0, 0, 0.12);
+
+.welcome-container {
+  min-height: 100vh;
+  background: $background-light;
+  display: flex;
+  font-family: 'Poppins', sans-serif;
+  position: relative;
+}
+
+// Top Right Logo
+.top-right-logo {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 10;
+  
+  @media (max-width: 768px) {
+    top: 16px;
+    right: 16px;
+  }
+  
+  @media (max-width: 480px) {
+    top: 12px;
+    right: 12px;
+  }
+}
+
+.nio-logo-large {
+  height: 120px; // 80px * 1.5 = 120px
+  width: auto;
+  opacity: 0.9;
+  transition: opacity 0.3s ease;
+  
+  &:hover {
+    opacity: 1;
+  }
+  
+  @media (max-width: 768px) {
+    height: 98px; // 65px * 1.5 = 97.5px ≈ 98px
+  }
+  
+  @media (max-width: 480px) {
+    height: 75px; // 50px * 1.5 = 75px
+  }
+}
+
+// Sidebar Styles
+.sidebar {
+  width: 200px;
+  background: $background-white;
+  border-right: 1px solid $border-color;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0;
+  
+  @media (max-width: 768px) {
+    width: 160px;
+    padding: 16px 0;
+  }
+  
+  @media (max-width: 480px) {
+    width: 120px;
+    padding: 12px 0;
+  }
+}
+
+.sidebar-logo {
+  padding: 0 20px;
+  margin-bottom: 30px;
+  
+  @media (max-width: 768px) {
+    padding: 0 16px;
+    margin-bottom: 20px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 0 12px;
+    margin-bottom: 16px;
+  }
+}
+
+.nio-logo {
+  height: 90px; // 60px * 1.5 = 90px
+  width: auto;
+  
+  @media (max-width: 768px) {
+    height: 68px; // 45px * 1.5 = 67.5px ≈ 68px
+  }
+  
+  @media (max-width: 480px) {
+    height: 53px; // 35px * 1.5 = 52.5px ≈ 53px
+  }
+}
+
+// Historia Section
+.historia-section {
+  padding: 0 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid $border-color;
+  padding-bottom: 20px;
+  min-height: 55svh; // 3/4 of viewport height
+  
+  @media (max-width: 768px) {
+    padding: 0 16px;
+    padding-bottom: 16px;
+    margin-bottom: 16px;
+    min-height: 70vh;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 0 12px;
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+    min-height: 65vh;
+  }
+}
+
+.historia-title {
+  color: $text-primary !important;
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+  margin-bottom: 16px !important;
+  margin-top: 0 !important;
+  
+  @media (max-width: 480px) {
+    font-size: 1rem !important;
+  }
+}
+
+.historia-content {
+  .historia-text {
+    color: $text-secondary !important;
+    font-size: 0.85rem !important;
+    line-height: 1.5 !important;
+    margin: 0 !important;
+    text-align: justify;
+    
+    @media (max-width: 480px) {
+      font-size: 0.75rem !important;
+      line-height: 1.4 !important;
+    }
+  }
+}
+
+// FAQ Section
+.faq-section {
+  flex: 1;
+  padding: 0 20px;
+  margin-bottom: 20px;
+  
+  @media (max-width: 768px) {
+    padding: 0 16px;
+    margin-bottom: 16px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 0 12px;
+    margin-bottom: 12px;
+  }
+}
+
+.faq-title {
+  color: $text-secondary !important;
+  font-size: 0.9rem !important;
+  margin-bottom: 12px !important;
+  margin-top: 0 !important;
+  
+  @media (max-width: 480px) {
+    font-size: 0.8rem !important;
+  }
+}
+
+.faq-list {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  
+  li {
+    color: $text-secondary !important;
+    font-size: 0.85rem !important;
+    padding: 4px 0;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    
+    &:hover {
+      color: $primary-red !important;
+    }
+    
+    @media (max-width: 480px) {
+      font-size: 0.75rem !important;
+    }
+  }
+}
+
+// Sidebar Footer
+.sidebar-footer {
+  padding: 16px 20px 0 20px;
+  border-top: 1px solid $border-color;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  
+  @media (max-width: 768px) {
+    padding: 12px 16px 0 16px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 10px 12px 0 12px;
+  }
+}
+
+.footer-link {
+  color: $text-secondary !important;
+  font-size: 0.85rem !important;
+  text-decoration: none !important;
+  transition: color 0.2s ease;
+  
+  &:hover {
+    color: $primary-red !important;
+    text-decoration: underline !important;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 0.75rem !important;
+  }
+}
+
+// Main Content Area
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.welcome-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  position: relative;
+  overflow: hidden;
+  
+  @media (max-width: 768px) {
+    padding: 30px 16px;
+  }
+}
+
+// Header Styles
+.welcome-header {
+  text-align: center;
+  margin-bottom: 30px;
+  width: 100%;
+  
+  .welcome-title {
+    color: $text-primary !important;
+    font-size: 2.2rem !important;
+    font-weight: 600 !important;
+    margin-bottom: 6px !important;
+    line-height: 1.2 !important;
+    
+    @media (max-width: 768px) {
+      font-size: 1.8rem !important;
+    }
+  }
+  
+  .welcome-subtitle {
+    color: $text-secondary !important;
+    font-size: 0.95rem !important;
+    font-weight: 400;
+    
+    @media (max-width: 768px) {
+      font-size: 0.85rem !important;
+    }
+  }
+}
+
+// Form Section Styles
+.form-section, .terms-section, .question-section {
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out, visibility 0.5s ease-in-out;
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.slide-in {
+  opacity: 1;
+  transform: scale(1);
+  visibility: visible;
+}
+
+.slide-out {
+  opacity: 0;
+  transform: scale(0.95);
+  visibility: hidden;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+.welcome-form, .terms-form, .question-form {
+  background: $background-white;
+  border-radius: 12px;
+  padding: 32px;
+  box-shadow: 0 4px 20px $shadow-light;
+  border: 1px solid $border-color;
+  width: 100%;
+  max-width: 420px;
+  
+  @media (max-width: 768px) {
+    padding: 24px 20px;
+    max-width: 380px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 20px 16px;
+    max-width: 100%;
+  }
+}
+
+.form-header, .terms-header, .question-header {
+  text-align: center;
+  margin-bottom: 24px;
+  
+  .form-title, .terms-title, .question-title {
+    color: $text-primary !important;
+    font-size: 1.5rem !important;
+    font-weight: 500 !important;
+    margin-bottom: 6px !important;
+    
+    @media (max-width: 768px) {
+      font-size: 1.3rem !important;
+    }
+  }
+  
+  .form-description {
+    color: $text-secondary !important;
+    font-size: 0.9rem !important;
+    
+    @media (max-width: 768px) {
+      font-size: 0.85rem !important;
+    }
+  }
+}
+
+.terms-header {
+  .terms-icon {
+    font-size: 3rem;
+    color: $primary-red;
+    margin-bottom: 16px;
+    display: block;
+  }
+}
+
+.question-header {
+  .question-icon {
+    font-size: 3rem;
+    color: $primary-red;
+    margin-bottom: 16px;
+    display: block;
+  }
+}
+
+// Form Field Styles
+.welcome-form-fields, .question-form-fields {
+  .ant-form-item-label > label {
+    color: $text-primary !important;
+    font-weight: 500 !important;
+    font-size: 0.95rem;
+  }
+  
+  .ant-form-item {
+    margin-bottom: 24px;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.welcome-input, .question-textarea {
+  border-radius: 8px !important;
+  border: 2px solid $border-color !important;
+  padding: 12px 16px !important;
+  font-size: 1rem !important;
+  transition: all 0.3s ease !important;
+  
+  &:hover {
+    border-color: lighten($primary-red, 20%) !important;
+  }
+  
+  &:focus, &.ant-input-focused {
+    border-color: $primary-red !important;
+    box-shadow: 0 0 0 2px rgba($primary-red, 0.1) !important;
+  }
+  
+  .input-icon {
+    color: $text-light;
+    margin-right: 8px;
+  }
+}
+
+.question-textarea {
+  resize: none !important;
+  min-height: 120px !important;
+  line-height: 1.6 !important;
+}
+
+// Terms Content Styles
+.terms-content {
+  margin-bottom: 32px;
+  
+  .terms-text {
+    color: $text-primary !important;
+    font-size: 1rem !important;
+    line-height: 1.6 !important;
+    text-align: left !important;
+    margin-bottom: 0 !important;
+    
+    strong {
+      color: $primary-red !important;
+      font-weight: 600;
+    }
+  }
+}
+
+.terms-actions {
+  text-align: center;
+}
+
+// Button Styles
+.start-button, .confirm-button, .submit-button {
+  height: 50px !important;
+  border-radius: 8px !important;
+  background: $primary-red !important;
+  border: none !important;
+  font-size: 1.1rem !important;
+  font-weight: 500 !important;
+  margin-top: 16px !important;
+  transition: all 0.3s ease !important;
+  
+  &:hover, &:focus {
+    background: $primary-red-hover !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba($primary-red, 0.3) !important;
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+  
+  &.ant-btn-loading {
+    background: $primary-red !important;
+  }
+}
+
+// Bottom Separator and Info
+.bottom-separator {
+  border-top: 1px solid $border-color;
+  padding: 18px 20px;
+  background: $background-white;
+  
+  @media (max-width: 768px) {
+    padding: 12px 16px;
+  }
+}
+
+.separator-line {
+  height: 1px;
+  background: $border-color;
+  margin-bottom: 12px;
+}
+
+.bottom-info {
+  .disclaimer-text {
+    color: $text-secondary !important;
+    font-size: 0.8rem !important;
+    line-height: 1.4 !important;
+    margin: 0 !important;
+    
+    @media (max-width: 768px) {
+      font-size: 0.75rem !important;
+    }
+  }
+}
+
+// Animation for smooth transitions
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeOutScale {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+}
+
+.welcome-form, .terms-form, .question-form {
+  animation: fadeInScale 0.5s ease-out;
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .welcome-header {
+    margin-bottom: 24px;
+  }
+  
+  .sidebar {
+    width: 140px;
+  }
+  
+  .main-content {
+    .welcome-content {
+      padding: 20px 16px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar {
+    width: 100px;
+  }
+  
+  .welcome-header {
+    margin-bottom: 20px;
+    
+    .welcome-title {
+      font-size: 1.6rem !important;
+    }
+    
+    .welcome-subtitle {
+      font-size: 0.8rem !important;
+    }
+  }
+  
+  .main-content {
+    .welcome-content {
+      padding: 16px 12px;
+    }
+  }
+}
+
+// Loading state
+.ant-btn-loading .ant-btn-loading-icon {
+  margin-right: 8px;
+}
+
+// Focus states for accessibility
+.welcome-input:focus,
+.question-textarea:focus,
+.start-button:focus,
+.confirm-button:focus,
+.submit-button:focus {
+  outline: 2px solid $primary-red;
+  outline-offset: 2px;
+}
+
+// Error states
+.ant-form-item-has-error {
+  .welcome-input, .question-textarea {
+    border-color: #ff4d4f !important;
+    
+    &:focus, &.ant-input-focused {
+      box-shadow: 0 0 0 2px rgba(255, 77, 79, 0.1) !important;
+    }
+  }
+}
+
+.ant-form-item-explain-error {
+  color: #ff4d4f;
+  font-size: 0.875rem;
+  margin-top: 4px;
+}
+
+// Chat Section
+.chat-section {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  opacity: 0;
+  transform: translateX(50px);
+  transition: all 0.5s ease;
+
+  &.slide-in {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  &.slide-out {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+
+  @media (max-width: 768px) {
+    padding: 32px 16px;
+    max-width: 100%;
+  }
+
+  @media (max-width: 480px) {
+    padding: 24px 12px;
+  }
+}
+
+.chat-form {
+  background: $background-white;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px $shadow-light;
+  overflow: hidden;
+  border: 1px solid $border-color;
+
+  .chat-header {
+    padding: 32px 32px 24px;
+    text-align: center;
+    border-bottom: 1px solid $border-color;
+    background: linear-gradient(135deg, $primary-red-light 0%, rgba(255, 255, 255, 0.8) 100%);
+
+    @media (max-width: 768px) {
+      padding: 24px 24px 20px;
+    }
+
+    @media (max-width: 480px) {
+      padding: 20px 20px 16px;
+    }
+
+    .chat-title {
+      color: $text-primary;
+      margin-bottom: 8px;
+      font-weight: 600;
+
+      @media (max-width: 768px) {
+        font-size: 24px;
+      }
+
+      @media (max-width: 480px) {
+        font-size: 20px;
+      }
+    }
+
+    .chat-description {
+      color: $text-secondary;
+      font-size: 16px;
+
+      @media (max-width: 768px) {
+        font-size: 14px;
+      }
+
+      @media (max-width: 480px) {
+        font-size: 13px;
+      }
+    }
+  }
+
+  .chat-interface-container {
+    padding: 24px;
+
+    @media (max-width: 768px) {
+      padding: 20px;
+    }
+
+    @media (max-width: 480px) {
+      padding: 16px;
+    }
+  }
+}
+
+// Chat History Section in Sidebar
+.chat-history-section {
+  margin-top: 24px;
+  height: 300px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid $border-color;
+  background: $background-white;
+
+  @media (max-width: 768px) {
+    margin-top: 20px;
+    height: 250px;
+  }
+
+  @media (max-width: 480px) {
+    margin-top: 16px;
+    height: 200px;
+  }
+}

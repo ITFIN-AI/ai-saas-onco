@@ -1,0 +1,19 @@
+<svg width="400" height="200" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Red N -->
+  <path d="M50 20 L50 120 L70 120 L70 60 L100 120 L120 120 L120 20 L100 20 L100 80 L70 20 Z" fill="#E53E3E"/>
+  
+  <!-- Red curved element -->
+  <path d="M50 130 Q80 130 80 160 Q80 190 50 190 Q20 190 20 160 Q20 130 50 130 Z M35 160 Q35 145 50 145 Q65 145 65 160 Q65 175 50 175 Q35 175 35 160 Z" fill="#E53E3E"/>
+  
+  <!-- Red dot -->
+  <circle cx="110" cy="175" r="8" fill="#E53E3E"/>
+  
+  <!-- Black text -->
+  <text x="140" y="45" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#000">Narodowy</text>
+  <text x="140" y="75" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#000">Instytut</text>
+  <text x="140" y="105" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#000">Onkologii</text>
+  
+  <!-- Smaller text -->
+  <text x="140" y="135" font-family="Arial, sans-serif" font-size="14" fill="#666">im. Marii Skłodowskiej-Curie</text>
+  <text x="140" y="155" font-family="Arial, sans-serif" font-size="14" fill="#666">Państwowy Instytut Badawczy</text>
+</svg>

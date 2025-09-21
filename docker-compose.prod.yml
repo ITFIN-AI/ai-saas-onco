@@ -1,0 +1,23 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    container_name: ai-saas-onco-prod
+    ports:
+      - "3000:3000"  # Web app
+    environment:
+      - NODE_ENV=production
+    restart: always
+
+  functions:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    container_name: ai-saas-functions-prod
+    ports:
+      - "5000:5000"  # Firebase functions
+    environment:
+      - NODE_ENV=production
+    command: node apps/functions/lib/index.js
+    restart: always 

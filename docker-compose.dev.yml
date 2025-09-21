@@ -1,0 +1,34 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: ai-saas-onco-dev
+    ports:
+      - "3000:3000"  # Web app
+      - "5000:5000"  # Firebase functions
+    volumes:
+      - ./:/app/
+    environment:
+      - NODE_ENV=development
+    command: pnpm dev
+    restart: unless-stopped
+
+  firebase:
+    build:
+      context: .
+      dockerfile: Dockerfile.firebase
+    container_name: ai-saas-firebase-emulators-dev
+    ports:
+      - "9199:9099"  # Auth
+      - "8080:8080"  # Firestore
+      - "4401:4401"  # UI
+      - "4402:4402"  # Hub
+      - "4500:4500"  # PubSub
+      - "9001:9001"  # Auth (specified in firebase.json)
+      - "5001:5001"  # Functions (specified in firebase.json)
+      - "5004:5004"  # Hosting (specified in firebase.json)
+      - "8085:8085"  # PubSub (specified in firebase.json)
+    volumes:
+      - ./emulator-data:/app/emulator-data
+    restart: unless-stopped 

@@ -1,0 +1,77 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ai-saas-onco
+    ports:
+      - "3000:3000"  # Web app
+      - "5000:5000"  # Firebase functions
+      - "9199:9099"  # Firebase auth emulator
+      - "8080:8080"  # Firebase firestore emulator
+      - "4400:4400"  # Firebase UI emulator
+      - "4500:4500"  # Firebase pubsub emulator
+    volumes:
+      - .:/app
+      - ./scripts:/app/scripts
+      - ./node_modules:/app/node_modules
+      - ./apps/web-app/node_modules:/app/apps/web-app/node_modules
+      - ./apps/functions/node_modules:/app/apps/functions/node_modules
+      - ./packages/shared/node_modules:/app/packages/shared/node_modules
+    environment:
+      - NODE_ENV=development
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DATABASE=chat_history
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    command: pnpm dev
+    restart: unless-stopped
+    depends_on:
+      - postgres
+
+  # Firebase emulators service
+  firebase:
+    build:
+      context: .
+      dockerfile: Dockerfile.firebase
+    container_name: ai-saas-firebase-emulators
+    ports:
+      - "9199:9099"  # Auth
+      - "8080:8080"  # Firestore
+      - "4400:4400"  # UI
+      - "4500:4500"  # PubSub
+      - "9001:9001"  # Auth (specified in firebase.json)
+      - "5001:5001"  # Functions (specified in firebase.json)
+      - "5004:5004"  # Hosting (specified in firebase.json)
+      - "8085:8085"  # PubSub (specified in firebase.json)
+    environment:
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DATABASE=chat_history
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./emulator-data:/app/emulator-data
+    restart: unless-stopped
+    depends_on:
+      - app
+      - postgres
+
+  # PostgreSQL database service
+  postgres:
+    image: postgres:15-alpine
+    container_name: ai-saas-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=chat_history
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./scripts/create-chat-tables.sql:/docker-entrypoint-initdb.d/01-create-chat-tables.sql
+    restart: unless-stopped
+
+volumes:
+  postgres_data: 

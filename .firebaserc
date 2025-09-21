@@ -1,7 +1,7 @@
 {
   "projects": {
-    "develop": "akademiasaas-boiler",
-    "production": "akademiasaas-boiler-production"
+    "develop": "ai-oncology",
+    "production": "ai-oncology"
   },
   "targets": {},
   "dataconnectEmulatorConfig": {}

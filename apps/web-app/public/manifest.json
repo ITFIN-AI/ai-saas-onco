@@ -1,6 +1,6 @@
 {
-  "short_name": "__PAGE_TITLE__",
-  "name": "__PAGE_TITLE__",
+  "short_name": "AI Oncology Assistant",
+  "name": "AI Oncology Assistant",
   "icons": [
     {
       "src": "favicon.ico",

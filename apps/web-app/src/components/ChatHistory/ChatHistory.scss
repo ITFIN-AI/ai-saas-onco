@@ -1,0 +1,177 @@
+.chat-history {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .chat-history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    border-bottom: 1px solid #f0f0f0;
+    background: #fafafa;
+
+    .ant-typography {
+      margin: 0;
+    }
+
+    .ant-btn {
+      border-radius: 6px;
+    }
+  }
+
+  .chat-history-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    gap: 16px;
+  }
+
+  .chat-history-error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    gap: 16px;
+    padding: 32px;
+
+    .ant-typography {
+      text-align: center;
+    }
+  }
+
+  .chat-history-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    padding: 32px;
+  }
+
+  .chat-history-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+
+    .chat-history-item {
+      margin-bottom: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      &.selected {
+        .session-card {
+          border-color: #1890ff;
+          box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+        }
+      }
+
+      .session-card {
+        width: 100%;
+        border-radius: 8px;
+        transition: all 0.2s ease;
+
+        .ant-card-body {
+          padding: 16px;
+        }
+
+        .session-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
+          margin-bottom: 12px;
+
+          .session-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            .session-id {
+              font-size: 14px;
+            }
+
+            .session-status {
+              font-size: 12px;
+              padding: 2px 6px;
+              border-radius: 4px;
+            }
+          }
+
+          .session-meta {
+            .session-time {
+              font-size: 12px;
+              display: flex;
+              align-items: center;
+              gap: 4px;
+            }
+          }
+        }
+
+        .session-preview {
+          margin-bottom: 12px;
+
+          .session-message {
+            font-size: 14px;
+            color: #595959;
+            margin: 0;
+            line-height: 1.4;
+          }
+        }
+
+        .session-footer {
+          display: flex;
+          justify-content: flex-end;
+
+          .session-count {
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .chat-history {
+    .chat-history-header {
+      padding: 12px;
+
+      .ant-typography {
+        font-size: 16px;
+      }
+    }
+
+    .chat-history-list {
+      padding: 12px;
+
+      .chat-history-item {
+        .session-card {
+          .ant-card-body {
+            padding: 12px;
+          }
+
+          .session-header {
+            flex-direction: column;
+            gap: 8px;
+            align-items: flex-start;
+
+            .session-meta {
+              align-self: flex-end;
+            }
+          }
+        }
+      }
+    }
+  }
+}

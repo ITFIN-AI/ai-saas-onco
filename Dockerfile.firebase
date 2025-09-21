@@ -1,0 +1,34 @@
+FROM node:22-alpine
+
+WORKDIR /app
+
+# Install Java - required for Firebase emulators
+RUN apk add --no-cache openjdk11
+
+# Install Firebase tools globally (more reliable in this dedicated container)
+RUN npm install -g firebase-tools
+
+# Copy Firebase configuration files
+COPY firebase.json .firebaserc firestore.rules firestore.indexes.json storage.rules ./
+
+# Copy our direct script for running Firebase emulators
+COPY scripts/run-firebase-emulators.js ./scripts/
+COPY turbo.json ./turbo.json
+# Create emulator-data directory
+RUN mkdir -p emulator-data
+
+# Expose Firebase emulator ports
+EXPOSE 9099 8080 4000 4400 4500 9001 5001 5004 8085 9199
+
+# Set environment variables
+ENV NODE_ENV=development
+ENV FIRESTORE_EMULATOR_HOST=localhost:8080
+ENV FIREBASE_AUTH_EMULATOR_HOST=localhost:9001
+ENV PUBSUB_EMULATOR_HOST=localhost:8085
+ENV FUNCTIONS_EMULATOR_HOST=localhost:5001
+
+# Create functions directory
+RUN mkdir -p apps/functions/lib
+
+# Start the Firebase emulators directly
+CMD ["firebase", "emulators:start", "--import", "./emulator-data", "--export-on-exit", "./emulator-data", "--project", "ai-oncology", "--only", "auth,firestore,functions,hosting,pubsub,ui", "--host", "0.0.0.0"]

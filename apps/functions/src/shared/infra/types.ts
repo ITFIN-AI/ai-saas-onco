@@ -35,4 +35,11 @@ export interface EnvConfig {
     url: string;
     token: string;
   };
+  postgres: {
+    host: string;
+    port: number;
+    database: string;
+    user: string;
+    password: string;
+  };
 }

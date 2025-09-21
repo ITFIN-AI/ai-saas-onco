@@ -1,0 +1,27 @@
+services:
+  firebase:
+    build:
+      context: .
+      dockerfile: Dockerfile.firebase
+    container_name: ai-saas-firebase-emulators-standalone
+    ports:
+      - "9199:9099"  # Auth
+      - "8080:8080"  # Firestore
+      - "4000:4000"  # Emulator UI
+      - "4400:4400"  # UI
+      - "4500:4500"  # PubSub
+      - "9001:9001"  # Auth (specified in firebase.json)
+      - "5001:5001"  # Functions (specified in firebase.json)
+      - "5004:5004"  # Hosting (specified in firebase.json)
+      - "8085:8085"  # PubSub (specified in firebase.json)
+    volumes:
+      - ./emulator-data:/app/emulator-data
+    # Let the Dockerfile CMD run (direct firebase command)
+    restart: unless-stopped
+    # Explicitly set the environment to avoid any issues
+    environment:
+      - NODE_ENV=development
+      - FIRESTORE_EMULATOR_HOST=localhost:8080
+      - FIREBASE_AUTH_EMULATOR_HOST=localhost:9001
+      - PUBSUB_EMULATOR_HOST=localhost:8085
+      - FUNCTIONS_EMULATOR_HOST=localhost:5001 

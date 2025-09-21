@@ -1,0 +1,5 @@
+export enum GetChatHistoryFromPostgresError {
+  INVALID_INPUT = 'INVALID_INPUT',
+  DATABASE_ERROR = 'DATABASE_ERROR',
+  NO_SESSIONS_FOUND = 'NO_SESSIONS_FOUND',
+}

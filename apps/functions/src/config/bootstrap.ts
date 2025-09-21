@@ -1,6 +1,7 @@
 import { getApps, initializeApp } from 'firebase-admin/app';
 import { getFirestore } from 'firebase-admin/firestore';
 import * as functions from 'firebase-functions/v1';
+import { Pool } from 'pg';
 
 import { EnvConfig } from '../shared/infra/types';
 
@@ -52,4 +53,23 @@ export const env: EnvConfig = {
     url: process.env.UPSTASH_REDIS_REST_URL || '',
     token: process.env.UPSTASH_REDIS_REST_TOKEN || '',
   },
+  postgres: {
+    host: process.env.POSTGRES_HOST || 'localhost',
+    port: parseInt(process.env.POSTGRES_PORT || '5432'),
+    database: process.env.POSTGRES_DATABASE || 'chat_history',
+    user: process.env.POSTGRES_USER || 'postgres',
+    password: process.env.POSTGRES_PASSWORD || '',
+  },
 };
+
+// PostgreSQL connection pool
+export const postgresPool = new Pool({
+  host: env.postgres.host,
+  port: env.postgres.port,
+  database: env.postgres.database,
+  user: env.postgres.user,
+  password: env.postgres.password,
+  max: 20,
+  idleTimeoutMillis: 30000,
+  connectionTimeoutMillis: 2000,
+});

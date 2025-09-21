@@ -1,1 +1,1 @@
-export const APP_NAME = '__PAGE_TITLE__';
+export const APP_NAME = 'AI Oncology Assistant';

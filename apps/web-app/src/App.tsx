@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { store } from '~/initializeStore';
 import AuthChecker from './components/AuthChecker/AuthChecker';
 import Auth from './pages/Auth/Auth';
+import Welcome from './pages/Welcome';
 import ProtectedRoute from '~/components/ProtectedRoute/ProtectedRoute';
 import { useTranslation } from 'react-i18next';
 import FullPageLoader from '~/components/FullPageLoader/FullPageLoader';
@@ -13,6 +14,7 @@ const Dashboard = lazy(() => import('~/pages/Dashboard/Dashboard'));
 const AppRoutes = () => (
   <AuthChecker>
     <Switch>
+      <Route path="/welcome" component={Welcome} />
       <Route path="/auth" component={Auth} />
       <ProtectedRoute path="/" component={Dashboard} />
     </Switch>

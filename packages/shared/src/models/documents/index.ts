@@ -11,3 +11,5 @@ export * from './Subscriptions';
 export * from './notifications';
 export * from './Reports';
 export * from './Currency';
+export * from './ChatSessionDocument';
+export * from './ChatHistoryDocument';
