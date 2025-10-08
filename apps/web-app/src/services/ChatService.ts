@@ -22,8 +22,13 @@ export class ChatService {
   private baseUrl: string;
 
   constructor() {
-    // Use Firebase Functions URL for production, localhost for development
-    this.baseUrl = import.meta.env.VITE_FUNCTION_DOMAIN || 'http://localhost:5001';
+    // Use Firebase Functions URL for production, localhost with project ID for Docker development
+    // When using emulator, need to include project ID and region
+    const isEmulator = import.meta.env.VITE_FIREBASE_EMULATOR === 'true';
+    const defaultUrl = isEmulator 
+      ? 'http://localhost:5001/ai-oncology/europe-central2'
+      : 'http://localhost:5001';
+    this.baseUrl = import.meta.env.VITE_FUNCTION_DOMAIN || defaultUrl;
   }
 
   async sendMessage(request: SendMessageRequest): Promise<ChatServiceResponse<SendMessageResponse>> {
@@ -94,17 +99,24 @@ export class ChatService {
   }
 
   async getChatHistoryFromPostgres(email: string): Promise<ChatServiceResponse<ChatHistoryDocument>> {
+    const url = `${this.baseUrl}/chat/getChatHistoryFromPostgres?email=${encodeURIComponent(email)}`;
+    console.log('ChatService: Attempting to fetch from URL:', url);
+    
     try {
-      const response = await fetch(`${this.baseUrl}/chat/getChatHistoryFromPostgres?email=${encodeURIComponent(email)}`, {
+      const response = await fetch(url, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
         },
       });
 
+      console.log('ChatService: Response status:', response.status);
+      console.log('ChatService: Response headers:', Object.fromEntries(response.headers.entries()));
+
       const data = await response.json();
       
       if (!response.ok) {
+        console.error('ChatService: Response not ok:', data);
         return {
           success: false,
           error: data.error || 'Failed to get chat history',
@@ -118,6 +130,7 @@ export class ChatService {
       };
     } catch (error) {
       console.error('ChatService.getChatHistoryFromPostgres error:', error);
+      console.error('ChatService: Base URL was:', this.baseUrl);
       return {
         success: false,
         error: 'NETWORK_ERROR',

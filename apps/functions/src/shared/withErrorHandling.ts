@@ -12,4 +12,11 @@ const wrapWithTryCatch =
       return null;
     });
 
-export const withErrorHandling = <T extends {}>(api: T): T => mapValues(api, wrapWithTryCatch) as T;
+export const withErrorHandling = <T extends {}>(api: T): T => {
+  // If it's a function, wrap it directly
+  if (typeof api === 'function') {
+    return wrapWithTryCatch(api) as T;
+  }
+  // If it's an object, use mapValues
+  return mapValues(api, wrapWithTryCatch) as T;
+};

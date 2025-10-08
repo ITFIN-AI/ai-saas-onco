@@ -27,8 +27,16 @@ ENV FIREBASE_AUTH_EMULATOR_HOST=localhost:9001
 ENV PUBSUB_EMULATOR_HOST=localhost:8085
 ENV FUNCTIONS_EMULATOR_HOST=localhost:5001
 
-# Create functions directory
+# Create functions directory and copy built functions
 RUN mkdir -p apps/functions/lib
+COPY apps/functions/lib/ apps/functions/lib/
+
+# Install functions dependencies
+WORKDIR /app/apps/functions/lib
+RUN npm install --production
+
+# Return to root directory
+WORKDIR /app
 
 # Start the Firebase emulators directly
-CMD ["firebase", "emulators:start", "--import", "./emulator-data", "--export-on-exit", "./emulator-data", "--project", "ai-oncology", "--only", "auth,firestore,functions,hosting,pubsub,ui", "--host", "0.0.0.0"]
+CMD ["firebase", "emulators:start", "--import", "./emulator-data", "--export-on-exit", "./emulator-data", "--project", "ai-oncology", "--only", "auth,firestore,functions,hosting,pubsub"]

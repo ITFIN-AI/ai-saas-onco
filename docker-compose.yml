@@ -6,11 +6,6 @@ services:
     container_name: ai-saas-onco
     ports:
       - "3000:3000"  # Web app
-      - "5000:5000"  # Firebase functions
-      - "9199:9099"  # Firebase auth emulator
-      - "8080:8080"  # Firebase firestore emulator
-      - "4400:4400"  # Firebase UI emulator
-      - "4500:4500"  # Firebase pubsub emulator
     volumes:
       - .:/app
       - ./scripts:/app/scripts
@@ -37,20 +32,23 @@ services:
       dockerfile: Dockerfile.firebase
     container_name: ai-saas-firebase-emulators
     ports:
-      - "9199:9099"  # Auth
+      - "4000:4000"  # Emulator UI
+      - "4400:4400"  # Hub
+      - "4500:4500"  # Reserved
+      - "5001:5001"  # Functions
+      - "5004:5004"  # Hosting
       - "8080:8080"  # Firestore
-      - "4400:4400"  # UI
-      - "4500:4500"  # PubSub
-      - "9001:9001"  # Auth (specified in firebase.json)
-      - "5001:5001"  # Functions (specified in firebase.json)
-      - "5004:5004"  # Hosting (specified in firebase.json)
-      - "8085:8085"  # PubSub (specified in firebase.json)
+      - "8085:8085"  # PubSub
+      - "9000:9000"  # Realtime Database
+      - "9099:9099"  # Auth
+      - "9199:9199"  # Storage
     environment:
       - POSTGRES_HOST=postgres
       - POSTGRES_PORT=5432
       - POSTGRES_DATABASE=chat_history
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+      - USE_MOCK_AI=false
     volumes:
       - ./emulator-data:/app/emulator-data
     restart: unless-stopped

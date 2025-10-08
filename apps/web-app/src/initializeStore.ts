@@ -62,15 +62,15 @@ if (!firebase.apps.length) {
     
     // Use environment variable for emulator host, with fallback to 'firebase' for Docker
     // Since we're running in Docker, default to 'firebase' service name
-    const emulatorHost = VITE_FIREBASE_EMULATOR_HOST || 'firebase';
-    
+    const emulatorHost = VITE_FIREBASE_EMULATOR_HOST || 'localhost';
+     
     // eslint-disable-next-line no-console
     console.log('Firebase emulator host:', emulatorHost);
     // eslint-disable-next-line no-console
     console.log('All VITE env vars:', { VITE_FIREBASE_EMULATOR, VITE_FIREBASE_EMULATOR_HOST });
     
     db.useEmulator(emulatorHost, 8080);
-    firebase.auth().useEmulator(`http://${emulatorHost}:9099/`);
+    firebase.auth().useEmulator(`http://${emulatorHost}:9099`);
     functions.useEmulator(emulatorHost, 5001);
     storage.useEmulator(emulatorHost, 9199);
     firebase.database().useEmulator(emulatorHost, 9000);

@@ -33,8 +33,8 @@ export class GetChatHistoryFromPostgresUseCase {
       `;
 
       const result = await postgresPool.query(sessionsQuery, [dto.email]);
-      
-      const sessions: ChatHistorySession[] = result.rows.map(row => ({
+
+      const sessions: ChatHistorySession[] = result.rows.map((row) => ({
         id: row.id,
         email: row.email,
         session_id: row.session_id,

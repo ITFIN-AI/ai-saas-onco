@@ -1,16 +1,33 @@
-import { getApps, initializeApp } from 'firebase-admin/app';
+import { getApps, initializeApp, cert } from 'firebase-admin/app';
 import { getFirestore } from 'firebase-admin/firestore';
 import * as functions from 'firebase-functions/v1';
 import { Pool } from 'pg';
 
 import { EnvConfig } from '../shared/infra/types';
 
-const app = !getApps().length ? initializeApp() : getApps()[0];
+// Check if we're running in the emulator
+const isEmulator = process.env.FIRESTORE_EMULATOR_HOST !== undefined;
+
+if (isEmulator) {
+  functions.logger.info(`Running in emulator mode - Firestore emulator at ${process.env.FIRESTORE_EMULATOR_HOST}`);
+}
+
+// Initialize Firebase Admin
+const app = !getApps().length 
+  ? initializeApp(isEmulator ? {
+      projectId: 'ai-oncology',
+    } : undefined)
+  : getApps()[0];
 
 const firestore = getFirestore(app);
 
 try {
-  firestore.settings({ ignoreUndefinedProperties: true, preferRest: true });
+  const settings: any = { ignoreUndefinedProperties: true };
+  // Don't use preferRest in emulator mode as it causes auth issues
+  if (!isEmulator) {
+    settings.preferRest = true;
+  }
+  firestore.settings(settings);
 } catch (e) {
   functions.logger.error('Cannot set firestore settings', e);
 }

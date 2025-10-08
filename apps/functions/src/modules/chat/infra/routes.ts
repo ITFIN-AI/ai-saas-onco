@@ -22,6 +22,4 @@ app.get('/getChatHistory/:sessionId', getChatHistoryController);
 app.get('/getChatHistoryFromPostgres', getChatHistoryFromPostgresController);
 
 // Export as Firebase Function
-export const chat = functions
-  .region(DEFAULT_FIREBASE_REGION)
-  .https.onRequest(app);
+export const chat = functions.region(DEFAULT_FIREBASE_REGION).https.onRequest(app);

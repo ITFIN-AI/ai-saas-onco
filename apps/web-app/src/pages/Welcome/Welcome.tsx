@@ -35,7 +35,12 @@ const Welcome: React.FC = () => {
   };
 
   const handleAcceptTerms = () => {
-    setCurrentStep('question');
+    // Generate session ID and go directly to chat
+    if (formData?.email) {
+      const newSessionId = chatService.generateSessionId(formData.email);
+      setSessionId(newSessionId);
+      setCurrentStep('chat');
+    }
   };
 
   const handleSubmitQuestion = (values: { question: string }) => {

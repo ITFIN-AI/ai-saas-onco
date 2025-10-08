@@ -20,7 +20,7 @@ fi
 
 # Set docker-compose file
 if [[ "$ENV" == "dev" ]]; then
-  DOCKER_COMPOSE_FILE="docker-compose.dev.yml"
+  DOCKER_COMPOSE_FILE="docker-compose.yml"
 elif [[ "$ENV" == "prod" ]]; then
   DOCKER_COMPOSE_FILE="docker-compose.prod.yml"
 elif [[ "$ENV" == "firebase" ]]; then

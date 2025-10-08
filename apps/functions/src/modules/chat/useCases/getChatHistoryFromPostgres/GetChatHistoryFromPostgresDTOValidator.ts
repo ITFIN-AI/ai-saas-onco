@@ -5,4 +5,6 @@ export const GetChatHistoryFromPostgresDTOValidator = z.object({
   email: z.string().email('Invalid email address'),
 });
 
-export type GetChatHistoryFromPostgresDTOValidationResult = z.infer<typeof GetChatHistoryFromPostgresDTOValidator>;
+export type GetChatHistoryFromPostgresDTOValidationResult = z.infer<
+  typeof GetChatHistoryFromPostgresDTOValidator
+>;

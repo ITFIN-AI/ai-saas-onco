@@ -36,8 +36,8 @@ RUN if [ ! -d "/app/node_modules" ]; then \
     pnpm install --unsafe-perm || pnpm run approve-builds && pnpm install --unsafe-perm; \
 fi
 
-# Build the project
-RUN pnpm build
+## Build the project
+#RUN pnpm build
 
 # Expose ports
 EXPOSE 3000 5000 9099 8080 4400 4500 9199
