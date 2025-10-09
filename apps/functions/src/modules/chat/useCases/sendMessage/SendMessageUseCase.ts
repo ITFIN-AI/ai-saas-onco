@@ -153,8 +153,8 @@ export class SendMessageUseCase {
     // Use mock AI response in development if configured
     if (this.USE_MOCK_AI) {
       console.log('Using mock AI response for development');
-      
-return `Mock AI response to: "${message}". This is a simulated response for development. Configure N8N_WEBHOOK_URL environment variable to use a real AI service.`;
+
+      return `Mock AI response to: "${message}". This is a simulated response for development. Configure N8N_WEBHOOK_URL environment variable to use a real AI service.`;
     }
 
     try {
