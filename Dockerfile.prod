@@ -12,6 +12,10 @@ COPY apps/functions/package.json ./apps/functions/
 COPY apps/web-app/package.json ./apps/web-app/
 COPY packages/shared/package.json ./packages/shared/
 
+# Copy workspace package source code (needed for pnpm workspace linking)
+COPY packages/shared/src ./packages/shared/src
+COPY packages/shared/tsconfig.json ./packages/shared/tsconfig.json
+
 # Copy scripts folder needed for prepare hook
 COPY scripts ./scripts
 COPY .husky ./.husky
@@ -50,6 +54,10 @@ COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY apps/functions/package.json ./apps/functions/
 COPY apps/web-app/package.json ./apps/web-app/
 COPY packages/shared/package.json ./packages/shared/
+
+# Copy workspace package source code (needed for pnpm workspace linking)
+COPY packages/shared/src ./packages/shared/src
+COPY packages/shared/tsconfig.json ./packages/shared/tsconfig.json
 
 # Copy scripts folder needed for prepare hook
 COPY scripts ./scripts
