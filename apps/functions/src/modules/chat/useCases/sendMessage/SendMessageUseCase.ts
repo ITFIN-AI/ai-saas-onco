@@ -7,7 +7,7 @@ import { ChatSessionDocument, ChatMessage } from '@akademiasaas/shared';
 
 export class SendMessageUseCase {
   private readonly N8N_WEBHOOK_URL =
-    process.env.N8N_WEBHOOK_URL || 
+    process.env.N8N_WEBHOOK_URL ||
     'https://aiforyou.agency/webhook/efbc64f9-36f3-415d-b219-49bfd55d1a59/chat';
   private readonly USE_MOCK_AI = process.env.USE_MOCK_AI === 'true';
 
@@ -78,8 +78,8 @@ export class SendMessageUseCase {
     };
 
     await sessionsRef.doc(sessionId).set(newSession);
-    
-return newSession;
+
+    return newSession;
   }
 
   private async saveMessage(sessionId: string, message: ChatMessage): Promise<void> {
@@ -153,7 +153,8 @@ return newSession;
     // Use mock AI response in development if configured
     if (this.USE_MOCK_AI) {
       console.log('Using mock AI response for development');
-      return `Mock AI response to: "${message}". This is a simulated response for development. Configure N8N_WEBHOOK_URL environment variable to use a real AI service.`;
+      
+return `Mock AI response to: "${message}". This is a simulated response for development. Configure N8N_WEBHOOK_URL environment variable to use a real AI service.`;
     }
 
     try {
@@ -163,10 +164,10 @@ return newSession;
         chatInput: message,
         sessionId: 'default',
       };
-      
+
       console.log('Calling n8n webhook:', this.N8N_WEBHOOK_URL);
       console.log('Request body:', requestBody);
-      
+
       const response = await fetch(this.N8N_WEBHOOK_URL, {
         method: 'POST',
         headers: {
@@ -176,7 +177,7 @@ return newSession;
       });
 
       console.log('Webhook response status:', response.status);
-      
+
       // Try to get response text regardless of status
       const responseText = await response.text();
       console.log('Webhook response body:', responseText);
@@ -196,9 +197,16 @@ return newSession;
         // If response is plain text, return it directly
         return responseText || 'No response received';
       }
-      
+
       // n8n chat webhooks typically return: { output: "response" } or { text: "response" } or { message: "response" }
-      return data.output || data.text || data.response || data.message || responseText || 'No response received';
+      return (
+        data.output ||
+        data.text ||
+        data.response ||
+        data.message ||
+        responseText ||
+        'No response received'
+      );
     } catch (error) {
       console.error('Error calling n8n webhook:', error);
       // In development, DON'T fallback to mock - let the error propagate to see what's wrong

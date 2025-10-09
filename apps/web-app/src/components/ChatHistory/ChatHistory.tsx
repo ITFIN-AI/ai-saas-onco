@@ -135,7 +135,7 @@ const ChatHistory: React.FC<ChatHistoryProps> = ({
   return (
     <div className="chat-history">
       <div className="chat-history-header">
-        <Title level={4}>Historia Rozmów</Title>
+        <Title level={5}>Historia</Title>
         <Button 
           icon={<ReloadOutlined />} 
           onClick={loadChatSessions}

@@ -58,7 +58,7 @@ $shadow-medium: rgba(0, 0, 0, 0.12);
 
 // Sidebar Styles
 .sidebar {
-  width: 200px;
+  width: 280px;
   background: $background-white;
   border-right: 1px solid $border-color;
   display: flex;
@@ -66,12 +66,12 @@ $shadow-medium: rgba(0, 0, 0, 0.12);
   padding: 20px 0;
   
   @media (max-width: 768px) {
-    width: 160px;
+    width: 220px;
     padding: 16px 0;
   }
   
   @media (max-width: 480px) {
-    width: 120px;
+    width: 180px;
     padding: 12px 0;
   }
 }
@@ -695,19 +695,21 @@ $shadow-medium: rgba(0, 0, 0, 0.12);
 // Chat History Section in Sidebar
 .chat-history-section {
   margin-top: 24px;
-  height: 300px;
+  margin-bottom: 24px;
+  height: 750px; 
   border-radius: 12px;
   overflow: hidden;
   border: 1px solid $border-color;
   background: $background-white;
+  flex-shrink: 0;
 
   @media (max-width: 768px) {
     margin-top: 20px;
-    height: 250px;
+    height: 300px;
   }
 
   @media (max-width: 480px) {
     margin-top: 16px;
-    height: 200px;
+    height: 250px;
   }
 }
