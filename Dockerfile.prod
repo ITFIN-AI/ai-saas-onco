@@ -49,12 +49,9 @@ COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY apps/functions/package.json ./apps/functions/
 COPY apps/web-app/package.json ./apps/web-app/
 
-# Copy built assets from builder stage BEFORE installing dependencies
-# This is needed so pnpm can resolve the workspace package
-COPY --from=builder /app/packages/shared/package.json ./packages/shared/package.json
-COPY --from=builder /app/packages/shared/lib ./packages/shared/lib
-COPY --from=builder /app/packages/shared/src ./packages/shared/src
-COPY --from=builder /app/packages/shared/tsconfig.json ./packages/shared/tsconfig.json
+# Copy the entire shared package from builder stage BEFORE installing dependencies
+# This is needed so pnpm can resolve the workspace package and not try to fetch from npm
+COPY --from=builder /app/packages/shared ./packages/shared
 
 # Copy scripts folder needed for prepare hook
 COPY scripts ./scripts
@@ -71,8 +68,9 @@ ENV npm_config_prepare_script="prepare-docker"
 # Create .husky directory if it doesn't exist
 RUN mkdir -p .husky
 
-# Install production dependencies only (workspace packages will be linked, not fetched from npm)
-RUN pnpm install --prod --no-frozen-lockfile --unsafe-perm
+# Install dependencies (including workspace package linking)
+# Note: Using --prod can break workspace linking, so we install all deps
+RUN pnpm install --no-frozen-lockfile --unsafe-perm
 
 # Copy built assets from builder stage
 COPY --from=builder /app/apps/web-app/build ./apps/web-app/build
