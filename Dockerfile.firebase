@@ -1,3 +1,42 @@
+FROM node:22-alpine AS builder
+
+# Accept build argument for Firebase project ID
+ARG GCLOUD_PROJECT
+
+# Install pnpm
+RUN npm install -g pnpm@10.4.1
+
+# Set working directory
+WORKDIR /app
+
+# Set environment variable from build argument
+ENV GCLOUD_PROJECT=${GCLOUD_PROJECT}
+
+# Use legacy OpenSSL provider for compatibility with older packages
+ENV NODE_OPTIONS=--openssl-legacy-provider
+
+# Copy all source code (needed for pnpm workspace resolution)
+COPY . .
+
+# Copy scripts folder and make executable
+RUN chmod +x scripts/prepare-docker.js scripts/approve-builds.js
+
+# Approve build scripts automatically
+ENV PNPM_AUTOAPPROVESCRIPTS=true
+# Use our Docker-safe prepare script
+ENV npm_config_prepare_script="prepare-docker"
+
+# Create .husky directory if it doesn't exist
+RUN mkdir -p .husky
+
+# Install dependencies
+RUN pnpm install --unsafe-perm || pnpm run approve-builds && pnpm install --unsafe-perm
+
+# Build only the functions package
+RUN pnpm --filter @akademiasaas/shared run build
+RUN pnpm --filter @akademiasaas/functions run build
+
+# Firebase stage
 FROM node:22-alpine
 
 WORKDIR /app
@@ -27,9 +66,9 @@ ENV FIREBASE_AUTH_EMULATOR_HOST=localhost:9001
 ENV PUBSUB_EMULATOR_HOST=localhost:8085
 ENV FUNCTIONS_EMULATOR_HOST=localhost:5001
 
-# Create functions directory and copy built functions
+# Copy built functions from builder stage
 RUN mkdir -p apps/functions/lib
-COPY apps/functions/lib/ apps/functions/lib/
+COPY --from=builder /app/apps/functions/lib/ apps/functions/lib/
 
 # Install functions dependencies
 WORKDIR /app/apps/functions/lib
