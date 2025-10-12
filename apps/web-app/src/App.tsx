@@ -1,7 +1,7 @@
 import React, { lazy, Suspense, useEffect } from 'react';
 import './App.css';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { store } from '~/initializeStore';
 import AuthChecker from './components/AuthChecker/AuthChecker';
 import Auth from './pages/Auth/Auth';
@@ -14,7 +14,6 @@ const Dashboard = lazy(() => import('~/pages/Dashboard/Dashboard'));
 const AppRoutes = () => (
   <AuthChecker>
     <Switch>
-      <Route path="/welcome" component={Welcome} />
       <Route path="/auth" component={Auth} />
       <ProtectedRoute path="/" component={Dashboard} />
     </Switch>
@@ -25,7 +24,11 @@ const Routes = () => {
   return (
     <>
       <Suspense fallback={<FullPageLoader />}>
-        <Route path="/" component={AppRoutes} />
+        <Switch>
+          <Route path="/" exact component={Welcome} />
+          <Route path="/auth" component={Auth} />
+          <Route path="/dashboard" component={AppRoutes} />
+        </Switch>
       </Suspense>
     </>
   );
@@ -44,7 +47,7 @@ function App() {
 
   return (
     <Provider store={store}>
-      <Router>
+      <Router basename="/welcome">
         <Routes />
       </Router>
     </Provider>

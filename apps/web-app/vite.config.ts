@@ -7,6 +7,7 @@ import svgr from 'vite-plugin-svgr';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: '/welcome/',  // Set base path for assets
   build: {
     outDir: 'build', // Output to 'build' directory instead of 'dist'
     sourcemap: true, // Source map generation must be turned on
@@ -14,7 +15,13 @@ export default defineConfig({
   server: {
     port: 3000,
     host: '0.0.0.0', // Allow access from outside container
-    allowedHosts: ['aiforyou.agency']
+    allowedHosts: ['aiforyou.agency'],
+    strictPort: true,
+    hmr: {
+      host: 'aiforyou.agency',
+      protocol: 'wss',
+      clientPort: 443
+    }
   },
   optimizeDeps: {
     include: ['**/*.scss'], // Include all .scss files
