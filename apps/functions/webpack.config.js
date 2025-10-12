@@ -91,6 +91,7 @@ module.exports = {
     path: path.resolve(__dirname, 'lib'),
     libraryTarget: 'commonjs',
     clean: true,
+    hashFunction: 'xxhash64',
   },
   externals: [
     /^firebase.+$/,

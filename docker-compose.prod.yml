@@ -3,6 +3,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.prod
+      args:
+        - GCLOUD_PROJECT=ai-oncology
     container_name: ai-saas-onco-prod
     ports:
       - "3000:3000"  # Web app
@@ -14,6 +16,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.prod
+      args:
+        - GCLOUD_PROJECT=ai-oncology
     container_name: ai-saas-functions-prod
     ports:
       - "5000:5000"  # Firebase functions
