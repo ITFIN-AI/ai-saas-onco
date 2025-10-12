@@ -14,18 +14,19 @@
     "noEmitOnError": false,
     "strictPropertyInitialization": false,
     "useUnknownInCatchVariables": false,
+    "typeRoots": ["./node_modules/@types"],
     "lib": [
       "es2019",
       "dom"
-    ]
+    ],
+    "types": []
   },
   "include": [
     "src/**/*"
   ],
   "exclude": [
-    "src/**/*.spec.*"
-  ],
-  "types": [
-    "node"
+    "src/**/*.spec.*",
+    "node_modules",
+    "../web-app"
   ]
 }

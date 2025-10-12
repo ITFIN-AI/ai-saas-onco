@@ -31,10 +31,9 @@ RUN mkdir -p .husky
 # Copy the rest of the code
 COPY . .
 
-# Install dependencies only if node_modules is not mounted
-RUN if [ ! -d "/app/node_modules" ]; then \
-    pnpm install --unsafe-perm || pnpm run approve-builds && pnpm install --unsafe-perm; \
-fi
+# Install dependencies
+# Note: Even if node_modules is mounted, we need to ensure all dependencies are installed
+RUN pnpm install --no-frozen-lockfile --unsafe-perm || pnpm run approve-builds && pnpm install --no-frozen-lockfile --unsafe-perm
 
 ## Build the project
 #RUN pnpm build
