@@ -19,7 +19,7 @@ services:
       context: .
       dockerfile: Dockerfile.firebase
       args:
-        - GCLOUD_PROJECT=${GCLOUD_PROJECT:-ai-oncology}
+        - 1=${GCLOUD_PROJECT:-ai-oncology}
     container_name: ai-saas-firebase-emulators-dev
     ports:
       - "9199:9099"  # Auth

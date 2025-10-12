@@ -30,7 +30,7 @@ ENV npm_config_prepare_script="prepare-docker"
 RUN mkdir -p .husky
 
 # Install dependencies
-RUN pnpm install --unsafe-perm || pnpm run approve-builds && pnpm install --unsafe-perm
+RUN pnpm install --no-frozen-lockfile --unsafe-perm || pnpm run approve-builds && pnpm install --no-frozen-lockfile --unsafe-perm
 
 # Build the project using turbo
 RUN pnpm turbo run build
@@ -72,11 +72,14 @@ ENV npm_config_prepare_script="prepare-docker"
 RUN mkdir -p .husky
 
 # Install production dependencies only
-RUN pnpm install --prod --unsafe-perm || pnpm run approve-builds && pnpm install --prod --unsafe-perm
+RUN pnpm install --prod --no-frozen-lockfile --unsafe-perm || pnpm run approve-builds && pnpm install --prod --no-frozen-lockfile --unsafe-perm
 
 # Copy built assets from builder stage
 COPY --from=builder /app/apps/web-app/build ./apps/web-app/build
 COPY --from=builder /app/apps/functions/lib ./apps/functions/lib
+
+# Copy server.js for serving the static build
+COPY apps/web-app/server.js ./apps/web-app/
 
 # Expose web app port
 EXPOSE 3000
@@ -85,4 +88,4 @@ EXPOSE 3000
 ENV NODE_ENV=production
 
 # Start the application
-CMD ["node", "apps/web-app/build/server.js"] 
+CMD ["node", "apps/web-app/server.js"] 

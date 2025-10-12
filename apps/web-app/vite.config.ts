@@ -8,6 +8,7 @@ import svgr from 'vite-plugin-svgr';
 // https://vitejs.dev/config/
 export default defineConfig({
   build: {
+    outDir: 'build', // Output to 'build' directory instead of 'dist'
     sourcemap: true, // Source map generation must be turned on
   },
   server: {

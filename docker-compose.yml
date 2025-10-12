@@ -31,7 +31,7 @@ services:
       context: .
       dockerfile: Dockerfile.firebase
       args:
-        - GCLOUD_PROJECT=${GCLOUD_PROJECT:-ai-oncology}
+        - GCLOUD_PROJECT='ai-oncology'
     container_name: ai-saas-firebase-emulators
     ports:
       - "4000:4000"  # Emulator UI

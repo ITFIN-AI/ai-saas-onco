@@ -18,6 +18,9 @@ RUN mkdir -p .husky
 ENV PNPM_AUTOAPPROVESCRIPTS=true
 ENV npm_config_prepare_script="prepare-docker"
 
+# Install dependencies
+RUN pnpm install --no-frozen-lockfile
+
 # Expose ports
 EXPOSE 3000 5000 9099 8080 4400 4500 9199
 
