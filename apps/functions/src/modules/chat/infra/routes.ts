@@ -10,8 +10,18 @@ import { getChatHistoryFromPostgresController } from '../useCases/getChatHistory
 // Create Express app for chat endpoints
 const app = express();
 
-// Configure CORS
-app.use(cors({ origin: true }));
+// Configure CORS - allow all origins for development
+const corsOptions = {
+  origin: true,
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+};
+
+app.use(cors(corsOptions));
+
+// Handle preflight requests
+app.options('*', cors(corsOptions));
 
 // Configure body parser
 app.use(bodyParser.json());
