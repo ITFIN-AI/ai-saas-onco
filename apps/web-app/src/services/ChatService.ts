@@ -22,13 +22,21 @@ export class ChatService {
   private baseUrl: string;
 
   constructor() {
-    // Use Firebase Functions URL for production, localhost with project ID for Docker development
-    // When using emulator, need to include project ID and region
+    // Use Firebase Functions URL based on environment
+    // - Emulator: localhost with project ID and region
+    // - Production: use nginx proxy at /api/chat
     const isEmulator = import.meta.env.VITE_FIREBASE_EMULATOR === 'true';
-    const defaultUrl = isEmulator 
-      ? 'http://localhost:5001/ai-oncology/europe-central2'
-      : 'http://localhost:5001';
-    this.baseUrl = import.meta.env.VITE_FUNCTION_DOMAIN || defaultUrl;
+    
+    if (isEmulator) {
+      // Development with Firebase emulator
+      this.baseUrl = 'http://localhost:5001/ai-oncology/europe-central2';
+    } else if (import.meta.env.VITE_FUNCTION_DOMAIN) {
+      // Custom domain from environment variable
+      this.baseUrl = import.meta.env.VITE_FUNCTION_DOMAIN;
+    } else {
+      // Production: use nginx proxy (relative path)
+      this.baseUrl = '/api';
+    }
   }
 
   async sendMessage(request: SendMessageRequest): Promise<ChatServiceResponse<SendMessageResponse>> {
@@ -111,7 +119,12 @@ export class ChatService {
       });
 
       console.log('ChatService: Response status:', response.status);
-      console.log('ChatService: Response headers:', Object.fromEntries(response.headers.entries()));
+      // Log headers manually to avoid TypeScript iteration issues
+      const headers: Record<string, string> = {};
+      response.headers.forEach((value, key) => {
+        headers[key] = value;
+      });
+      console.log('ChatService: Response headers:', headers);
 
       const data = await response.json();
       
