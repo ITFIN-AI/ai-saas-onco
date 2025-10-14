@@ -47,7 +47,7 @@ function App() {
 
   return (
     <Provider store={store}>
-      <Router basename="/welcome">
+      <Router basename="/">
         <Routes />
       </Router>
     </Provider>

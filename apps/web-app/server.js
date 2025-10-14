@@ -9,20 +9,20 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Serve static files from the build directory under /welcome path
-app.use('/welcome', express.static(path.join(__dirname, 'build')));
+app.use('/', express.static(path.join(__dirname, 'build')));
 
 // Handle client-side routing - send index.html for /welcome routes
-app.get('/welcome*', (req, res) => {
+app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
 // Health check endpoint
 app.get('/health', (req, res) => {
-  res.json({ status: 'ok', app: 'ai-saas-onco-welcome' });
+  res.json({ status: 'ok', app: 'ai-saas-onco' });
 });
 
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server is running on port ${PORT}`);
-  console.log(`Welcome page accessible at http://localhost:${PORT}/welcome`);
+  console.log(`Welcome page accessible at http://localhost:${PORT}`);
 });
 
