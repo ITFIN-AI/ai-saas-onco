@@ -69,3 +69,4 @@ ENV NODE_ENV=development
 
 # Start the application
 CMD ["pnpm", "dev"]
+
