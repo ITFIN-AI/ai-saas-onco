@@ -28,6 +28,7 @@ export interface ChatServiceResponse<T> {
 
 export class AIChatBotService {
   private apiUrl: string;
+  private sessionId: string | null = null;
 
   constructor() {
     // Direct connection to AI chatbot
@@ -42,14 +43,18 @@ export class AIChatBotService {
       console.log('AIChatBotService: Sending message to n8n:', this.apiUrl);
       console.log('AIChatBotService: Message:', message);
       
-      // n8n chat webhooks typically expect one of these formats:
-      // Try common n8n chat webhook formats
+      // Generate or reuse session ID for conversation continuity
+      if (!this.sessionId) {
+        this.sessionId = this.generateSessionId();
+        console.log('AIChatBotService: Generated new session ID:', this.sessionId);
+      }
+      
+      // n8n AI Agent Chat typically expects:
+      // - chatInput: the user's message
+      // - sessionId: for conversation memory
       const requestBody = {
-        chatInput: message,  // Common for n8n AI chat
-        message: message,
-        question: message,
-        input: message,
-        text: message
+        chatInput: message,
+        sessionId: this.sessionId,
       };
       
       console.log('AIChatBotService: Request body:', JSON.stringify(requestBody, null, 2));
@@ -138,6 +143,21 @@ export class AIChatBotService {
     const timestamp = Date.now();
     const random = Math.random().toString(36).substring(2, 15);
     return `session_${timestamp}_${random}`;
+  }
+
+  /**
+   * Reset the current session (start a new conversation)
+   */
+  resetSession(): void {
+    console.log('AIChatBotService: Resetting session');
+    this.sessionId = null;
+  }
+
+  /**
+   * Get the current session ID
+   */
+  getCurrentSessionId(): string | null {
+    return this.sessionId;
   }
 }
 
