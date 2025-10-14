@@ -1,9 +1,32 @@
 import * as path from 'path';
-import { sentryVitePlugin } from '@sentry/vite-plugin';
+import { createRequire } from 'module';
 import react from '@vitejs/plugin-react';
-import { defineConfig } from 'vite';
+import { defineConfig, Plugin } from 'vite';
 import pluginRewriteAll from 'vite-plugin-rewrite-all';
 import svgr from 'vite-plugin-svgr';
+
+const require = createRequire(import.meta.url);
+
+// Function to get Sentry plugin if available
+function getSentryPlugin(): Plugin | null {
+  try {
+    // Try to dynamically require the module
+    const { sentryVitePlugin } = require('@sentry/vite-plugin');
+    return sentryVitePlugin({
+      disable: process.env.NODE_ENV === 'development',
+      org: 'software-guru-bogusz-pekalski',
+      project: 'akademiasaas',
+      authToken: process.env.SENTRY_AUTH_TOKEN,
+      sourcemaps: {
+        assets: ['.output/public'],
+        ignore: ['node_modules'],
+      },
+    });
+  } catch (e) {
+    console.warn('⚠️  Sentry Vite Plugin not available, continuing without it...');
+    return null;
+  }
+}
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -46,18 +69,9 @@ export default defineConfig({
     svgr(),
     react(),
     pluginRewriteAll(),
-    sentryVitePlugin({
-      disable: process.env.NODE_ENV === 'development',
-      org: 'software-guru-bogusz-pekalski',
-      project: 'akademiasaas',
-      // Auth tokens can be obtained from https://sentry.io/orgredirect/organizations/software-guru-bogusz-pekalski.sentry/settings/auth-tokens/
-      authToken: process.env.SENTRY_AUTH_TOKEN,
-      sourcemaps: {
-        assets: ['.output/public'],
-        ignore: ['node_modules'],
-      },
-    }),
-  ],
+    // Conditionally add Sentry plugin if available
+    getSentryPlugin(),
+  ].filter((plugin): plugin is Plugin => plugin !== null),
   define: {
     'import.meta.env.APP_VERSION': JSON.stringify(process.env.npm_package_version),
     // Force Firebase emulator host for Docker environment
