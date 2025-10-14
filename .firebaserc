@@ -1,7 +1,7 @@
 {
   "projects": {
     "develop": "ai-oncology",
-    "production": "ai-oncology"
+    "production": "ai-oncology-36936"
   },
   "targets": {},
   "dataconnectEmulatorConfig": {}
