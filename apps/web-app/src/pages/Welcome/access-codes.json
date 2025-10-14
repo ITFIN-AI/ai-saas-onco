@@ -1,0 +1,52 @@
+{
+  "accessCodes": [
+    {
+      "code": "ONCO2024",
+      "description": "Demo code for 2024 oncology access",
+      "validUntil": "2025-12-31",
+      "active": true
+    },
+    {
+      "code": "RADIO001",
+      "description": "Radiotherapy department access code",
+      "validUntil": "2025-12-31",
+      "active": true
+    },
+    {
+      "code": "NIO2024",
+      "description": "National Institute of Oncology access",
+      "validUntil": "2025-12-31",
+      "active": true
+    },
+    {
+      "code": "DEMO456",
+      "description": "Demo access code",
+      "validUntil": "2025-12-31",
+      "active": true
+    },
+    {
+      "code": "PATIENT001",
+      "description": "Patient portal access",
+      "validUntil": "2025-12-31",
+      "active": true
+    },
+    {
+      "code": "DOCTOR789",
+      "description": "Doctor access code",
+      "validUntil": "2025-12-31",
+      "active": true
+    },
+    {
+      "code": "ADMIN999",
+      "description": "Administrator access code",
+      "validUntil": "2025-12-31",
+      "active": true
+    }
+  ],
+  "validationRules": {
+    "minLength": 6,
+    "caseSensitive": false,
+    "requireEmail": true
+  }
+}
+

@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Button, Form, Input, Typography } from 'antd';
+import { Button, Form, Input, Typography, message } from 'antd';
 import { MailOutlined, KeyOutlined, CheckCircleOutlined } from '@ant-design/icons';
 import './Welcome.scss';
 import nioLogo from '../../assets/images/nio_logo_200-1.png';
 import SimpleChatInterface from '../../components/ChatInterface/SimpleChatInterface';
+import accessCodesData from './access-codes.json';
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -20,13 +21,36 @@ const Welcome: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState<WelcomeFormData | null>(null);
 
+  const validateAccessCode = (code: string): boolean => {
+    const normalizedCode = accessCodesData.validationRules.caseSensitive 
+      ? code 
+      : code.toUpperCase();
+    
+    return accessCodesData.accessCodes.some(accessCode => {
+      const normalizedAccessCode = accessCodesData.validationRules.caseSensitive
+        ? accessCode.code
+        : accessCode.code.toUpperCase();
+      
+      return normalizedAccessCode === normalizedCode && accessCode.active;
+    });
+  };
+
   const handleStart = async (values: WelcomeFormData) => {
     setIsLoading(true);
+    
+    // Validate the access code
+    if (!validateAccessCode(values.code)) {
+      setIsLoading(false);
+      message.error('Nieprawidłowy kod dostępu. Sprawdź kod i spróbuj ponownie.');
+      return;
+    }
+    
     setFormData(values);
     
     // Simulate API call for validation
     setTimeout(() => {
       setIsLoading(false);
+      message.success('Kod dostępu zaakceptowany!');
       setCurrentStep('terms');
     }, 1000);
   };
@@ -128,7 +152,18 @@ const Welcome: React.FC = () => {
                   label="Kod dostępu"
                   rules={[
                     { required: true, message: 'Proszę wprowadzić kod dostępu' },
-                    { min: 6, message: 'Kod musi mieć co najmniej 6 znaków' }
+                    { min: 6, message: 'Kod musi mieć co najmniej 6 znaków' },
+                    {
+                      validator: (_, value) => {
+                        if (!value || value.length < 6) {
+                          return Promise.resolve();
+                        }
+                        if (validateAccessCode(value)) {
+                          return Promise.resolve();
+                        }
+                        return Promise.reject(new Error('Nieprawidłowy kod dostępu'));
+                      }
+                    }
                   ]}
                 >
                   <Input
