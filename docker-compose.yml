@@ -8,11 +8,12 @@ services:
       - "3000:3000"  # Web app
     volumes:
       - .:/app
-      - ./scripts:/app/scripts
-      - ./node_modules:/app/node_modules
-      - ./apps/web-app/node_modules:/app/apps/web-app/node_modules
-      - ./apps/functions/node_modules:/app/apps/functions/node_modules
-      - ./packages/shared/node_modules:/app/packages/shared/node_modules
+      - /app/node_modules
+      - /app/apps/web-app/node_modules
+      - /app/apps/functions/node_modules
+      - /app/packages/shared/node_modules
+      - /app/apps/web-app/build
+      - /app/apps/web-app/.vite
     environment:
       - NODE_ENV=development
       - POSTGRES_HOST=postgres
@@ -20,6 +21,8 @@ services:
       - POSTGRES_DATABASE=chat_history
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
     command: pnpm dev
     restart: unless-stopped
     depends_on:

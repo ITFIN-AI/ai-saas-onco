@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import { Button, Form, Input, Typography } from 'antd';
-import { MailOutlined, KeyOutlined, QuestionCircleOutlined, CheckCircleOutlined } from '@ant-design/icons';
+import { MailOutlined, KeyOutlined, CheckCircleOutlined } from '@ant-design/icons';
 import './Welcome.scss';
 import nioLogo from '../../assets/images/nio_logo_200-1.png';
-import ChatInterface from '../../components/ChatInterface/ChatInterface';
-import ChatHistory from '../../components/ChatHistory/ChatHistory';
-import { chatService } from '../../services/ChatService';
+import SimpleChatInterface from '../../components/ChatInterface/SimpleChatInterface';
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -14,20 +12,19 @@ interface WelcomeFormData {
   code: string;
 }
 
-type FormStep = 'welcome' | 'terms' | 'question' | 'chat';
+type FormStep = 'welcome' | 'terms' | 'chat';
 
 const Welcome: React.FC = () => {
   const [form] = Form.useForm();
   const [currentStep, setCurrentStep] = useState<FormStep>('welcome');
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState<WelcomeFormData | null>(null);
-  const [sessionId, setSessionId] = useState<string>('');
 
   const handleStart = async (values: WelcomeFormData) => {
     setIsLoading(true);
     setFormData(values);
     
-    // Simulate API call
+    // Simulate API call for validation
     setTimeout(() => {
       setIsLoading(false);
       setCurrentStep('terms');
@@ -35,24 +32,8 @@ const Welcome: React.FC = () => {
   };
 
   const handleAcceptTerms = () => {
-    // Generate session ID and go directly to chat
-    if (formData?.email) {
-      const newSessionId = chatService.generateSessionId(formData.email);
-      setSessionId(newSessionId);
-      setCurrentStep('chat');
-    }
-  };
-
-  const handleSubmitQuestion = (values: { question: string }) => {
-    console.log('Question submitted:', values.question);
-    console.log('User data:', formData);
-    
-    // Generate session ID and start chat
-    if (formData?.email) {
-      const newSessionId = chatService.generateSessionId(formData.email);
-      setSessionId(newSessionId);
-      setCurrentStep('chat');
-    }
+    // Go directly to chat
+    setCurrentStep('chat');
   };
 
   return (
@@ -76,17 +57,6 @@ const Welcome: React.FC = () => {
             className="nio-logo"
           />
         </div>
-        
-        {/* Chat History Section - show after terms acceptance */}
-        {(currentStep === 'terms' || currentStep === 'question' || currentStep === 'chat') && formData?.email && (
-          <div className="chat-history-section">
-            <ChatHistory 
-              email={formData.email}
-              onSessionSelect={(sessionId) => setSessionId(sessionId)}
-              selectedSessionId={sessionId}
-            />
-          </div>
-        )}
         
         {/* FAQ Section */}
         <div className="faq-section">
@@ -219,56 +189,9 @@ const Welcome: React.FC = () => {
           )}
         </div>
 
-        {/* Question Section */}
-        <div className={`question-section ${currentStep === 'question' ? 'slide-in' : 'slide-out'}`}>
-          {currentStep === 'question' && (
-            <div className="question-form">
-              <div className="question-header">
-                <QuestionCircleOutlined className="question-icon" />
-                <Title level={2} className="question-title">
-                  Jakie jest Twoje pytanie?
-                </Title>
-              </div>
-
-              <Form
-                layout="vertical"
-                onFinish={handleSubmitQuestion}
-                className="question-form-fields"
-                size="large"
-              >
-                <Form.Item
-                  name="question"
-                  rules={[
-                    { required: true, message: 'Proszę wprowadzić pytanie' },
-                    { min: 10, message: 'Pytanie musi mieć co najmniej 10 znaków' }
-                  ]}
-                >
-                  <Input.TextArea
-                    placeholder="Opisz swoje pytanie dotyczące diagnostyki onkologicznej..."
-                    rows={4}
-                    className="question-textarea"
-                    autoFocus
-                  />
-                </Form.Item>
-
-                <Form.Item>
-                  <Button
-                    type="primary"
-                    htmlType="submit"
-                    className="submit-button"
-                    block
-                  >
-                    Wyślij pytanie
-                  </Button>
-                </Form.Item>
-              </Form>
-            </div>
-          )}
-        </div>
-
         {/* Chat Section */}
         <div className={`chat-section ${currentStep === 'chat' ? 'slide-in' : 'slide-out'}`}>
-          {currentStep === 'chat' && formData?.email && sessionId && (
+          {currentStep === 'chat' && formData && (
             <div className="chat-form">
               <div className="chat-header">
                 <Title level={2} className="chat-title">
@@ -280,10 +203,7 @@ const Welcome: React.FC = () => {
               </div>
 
               <div className="chat-interface-container">
-                <ChatInterface 
-                  email={formData.email}
-                  sessionId={sessionId}
-                />
+                <SimpleChatInterface />
               </div>
             </div>
           )}

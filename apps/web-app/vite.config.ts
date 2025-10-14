@@ -15,12 +15,22 @@ export default defineConfig({
   server: {
     port: 3000,
     host: '0.0.0.0', // Allow access from outside container
-    allowedHosts: ['oncopomoc.pl'],
+    allowedHosts: ['oncopomoc.pl', 'localhost'],
     strictPort: true,
-    hmr: {
+    watch: {
+      usePolling: process.env.NODE_ENV === 'development', // Enable polling in Docker
+      interval: 1000, // Poll every 1 second
+      ignored: ['**/node_modules/**', '**/dist/**', '**/build/**']
+    },
+    hmr: process.env.NODE_ENV === 'production' ? {
       host: 'oncopomoc.pl',
       protocol: 'wss',
       clientPort: 443
+    } : {
+      // For local development (Docker)
+      host: 'localhost',
+      protocol: 'ws',
+      port: 3000
     }
   },
   optimizeDeps: {
