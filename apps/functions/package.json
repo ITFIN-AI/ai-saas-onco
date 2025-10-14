@@ -13,7 +13,7 @@
   },
   "main": "lib/index.js",
   "dependencies": {
-    "@akademiasaas/shared": "^1.203.0",
+    "@akademiasaas/shared": "workspace:*",
     "@asteasolutions/zod-to-openapi": "^5.2.0",
     "@google-cloud/firestore": "^4.15.1",
     "@google-cloud/pubsub": "^2.7.0",

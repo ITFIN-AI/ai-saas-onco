@@ -23,6 +23,10 @@ COPY apps/functions/package.json ./apps/functions/
 COPY apps/web-app/package.json ./apps/web-app/
 COPY packages/shared/package.json ./packages/shared/
 
+# Copy shared package source (required for workspace dependencies)
+COPY packages/shared/src ./packages/shared/src
+COPY packages/shared/tsconfig.json ./packages/shared/tsconfig.json
+
 # Copy scripts needed for installation
 COPY scripts ./scripts
 RUN mkdir -p .husky
