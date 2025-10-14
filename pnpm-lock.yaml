@@ -260,6 +260,9 @@ importers:
       openapi3-ts:
         specifier: 4.2.1
         version: 4.2.1
+      pg:
+        specifier: ^8.11.3
+        version: 8.13.3
       postmark:
         specifier: ^2.7.3
         version: 2.9.5
@@ -345,6 +348,9 @@ importers:
       '@types/node':
         specifier: ^18.19.14
         version: 18.19.80
+      '@types/pg':
+        specifier: ^8.10.9
+        version: 8.15.5
       '@types/uuid':
         specifier: ^8.3.0
         version: 8.3.4
@@ -573,6 +579,9 @@ importers:
       classnames:
         specifier: ^2.5.1
         version: 2.5.1
+      cross-env:
+        specifier: ^7.0.3
+        version: 7.0.3
       css-loader:
         specifier: ^6.5.1
         version: 6.11.0(webpack@5.98.0)
@@ -624,6 +633,9 @@ importers:
       eslint-webpack-plugin:
         specifier: ^3.1.1
         version: 3.2.0(eslint@8.57.0)(webpack@5.98.0)
+      express:
+        specifier: ^4.18.2
+        version: 4.21.2
       file-loader:
         specifier: 6.1.1
         version: 6.1.1(webpack@5.98.0)
@@ -5221,6 +5233,9 @@ packages:
 
   '@types/pbf@3.0.5':
     resolution: {integrity: sha512-j3pOPiEcWZ34R6a6mN07mUkM4o4Lwf6hPNt8eilOeZhTFbxFXmKhvXl9Y28jotFPaI1bpPDJsbCprUoNke6OrA==}
+
+  '@types/pg@8.15.5':
+    resolution: {integrity: sha512-LF7lF6zWEKxuT3/OR8wAZGzkg4ENGXFNyiV/JeOt9z5B+0ZVwbql9McqX5c/WStFq1GaGso7H1AzP/qSzmlCKQ==}
 
   '@types/prettier@2.7.3':
     resolution: {integrity: sha512-+68kP9yzs4LMp7VNh8gdzMSPZFL44MLGqiHWvttYJe+6qnuVr4Ek9wSBQoveqY/r+LwjCcU29kNVkidwim+kYA==}
@@ -13585,8 +13600,8 @@ packages:
     resolution: {integrity: sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==}
     engines: {node: '>=0.10.0'}
 
-  react@19.1.1:
-    resolution: {integrity: sha512-w8nqGImo45dmMIfljjMwOGtbmC/mk4CMYhWIicdSflH91J9TyCyczcPFXJzrZ/ZXcgGRFeP6BU0BEJTw6tZdfQ==}
+  react@19.2.0:
+    resolution: {integrity: sha512-tmbWg6W31tQLeB5cdIBOicJDJRR2KzXsV7uSK9iNfLWQ5bIZfxuPEHp7M8wiHyHnn0DD1i7w3Zmin0FtkrwoCQ==}
     engines: {node: '>=0.10.0'}
 
   reactcss@1.2.3:
@@ -15412,8 +15427,8 @@ packages:
     resolution: {integrity: sha512-gptHNQghINnc/vTGIk0SOFGFNXw7JVrlRUtConJRlvaw6DuX0wO5Jeko9sWrMBhh+PsYAZ7oXAiOnf/UKogyiw==}
     engines: {node: '>= 10.0.0'}
 
-  unlayer-types@1.307.0:
-    resolution: {integrity: sha512-1U37e5q1caMUqNIDOWIaxAJP8vM/5GkyyuXpg/WGgEXsfpUowcXqTlimJayRo0IfZ4fsnGEEPuMbUwr117kMCQ==}
+  unlayer-types@1.313.0:
+    resolution: {integrity: sha512-4r0Bp3LYcCqCqkq5xodO1d2Z+VSiXwWMj4w29xanwVryRY3OwTrCJXgID+7mGRlY1uPL+A7f2s7BLh6Pg+w9qw==}
 
   unpipe@1.0.0:
     resolution: {integrity: sha512-pjy2bYhSsufwWlKwPc+l3cN7+wuJlK6uz0YdJEOlQDbl6jo/YlPi4mb8agUkVC8BF7V8NuzeyPNqRksA3hztKQ==}
@@ -21885,6 +21900,12 @@ snapshots:
 
   '@types/pbf@3.0.5': {}
 
+  '@types/pg@8.15.5':
+    dependencies:
+      '@types/node': 18.19.80
+      pg-protocol: 1.7.1
+      pg-types: 2.2.0
+
   '@types/prettier@2.7.3': {}
 
   '@types/prop-types@15.7.14': {}
@@ -27817,7 +27838,7 @@ snapshots:
       jest-environment-jsdom: 26.6.2(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       jest-environment-node: 26.6.2
       jest-get-type: 26.3.0
-      jest-jasmine2: 26.6.3
+      jest-jasmine2: 26.6.3(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       jest-regex-util: 26.0.0
       jest-resolve: 26.6.2
       jest-util: 26.6.2
@@ -28010,7 +28031,7 @@ snapshots:
     optionalDependencies:
       fsevents: 2.3.3
 
-  jest-jasmine2@26.6.3:
+  jest-jasmine2@26.6.3(bufferutil@4.0.9)(utf-8-validate@5.0.10):
     dependencies:
       '@babel/traverse': 7.26.9
       '@jest/environment': 26.6.2
@@ -28031,7 +28052,11 @@ snapshots:
       pretty-format: 26.6.2
       throat: 5.0.0
     transitivePeerDependencies:
+      - bufferutil
+      - canvas
       - supports-color
+      - ts-node
+      - utf-8-validate
 
   jest-leak-detector@26.6.2:
     dependencies:
@@ -30433,7 +30458,7 @@ snapshots:
 
   notion-blocks-react-renderer@1.4.0:
     dependencies:
-      react: 19.1.1
+      react: 19.2.0
 
   npm-bundled@1.1.2:
     dependencies:
@@ -32820,7 +32845,7 @@ snapshots:
   react-email-editor@1.7.11(react@18.2.0):
     dependencies:
       react: 18.2.0
-      unlayer-types: 1.307.0
+      unlayer-types: 1.313.0
 
   react-error-boundary@3.1.4(react@18.2.0):
     dependencies:
@@ -32997,7 +33022,7 @@ snapshots:
     dependencies:
       loose-envify: 1.4.0
 
-  react@19.1.1: {}
+  react@19.2.0: {}
 
   reactcss@1.2.3(react@18.2.0):
     dependencies:
@@ -35111,7 +35136,7 @@ snapshots:
 
   universalify@2.0.1: {}
 
-  unlayer-types@1.307.0: {}
+  unlayer-types@1.313.0: {}
 
   unpipe@1.0.0: {}
 

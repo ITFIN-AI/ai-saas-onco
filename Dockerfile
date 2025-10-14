@@ -27,15 +27,12 @@ COPY packages/shared/package.json ./packages/shared/
 COPY scripts ./scripts
 RUN mkdir -p .husky
 
-# Fetch dependencies (downloads to pnpm store without installing)
-# This step is cached unless lockfile changes
-RUN pnpm fetch --ignore-scripts
-
-# Install dependencies from the store
-# --offline uses only the fetched packages
-# --frozen-lockfile ensures reproducible builds
+# Install dependencies
+# For development, we allow lockfile updates if packages changed
+# --no-frozen-lockfile allows updating lockfile if needed
 # --prefer-offline uses cache when possible
-RUN pnpm install --frozen-lockfile --prefer-offline --ignore-scripts
+RUN pnpm install --no-frozen-lockfile --prefer-offline --ignore-scripts || \
+    pnpm install --no-frozen-lockfile --ignore-scripts
 
 # Run any necessary prepare scripts
 RUN pnpm run approve-builds || true
