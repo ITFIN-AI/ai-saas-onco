@@ -33,7 +33,7 @@ COPY . .
 
 # Install dependencies
 # Note: Even if node_modules is mounted, we need to ensure all dependencies are installed
-RUN pnpm install --no-frozen-lockfile --unsafe-perm || pnpm run approve-builds && pnpm install --no-frozen-lockfile --unsafe-perm
+RUN pnpm install --unsafe-perm || pnpm run approve-builds && pnpm install --unsafe-perm
 
 ## Build the project
 #RUN pnpm build

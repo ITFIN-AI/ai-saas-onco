@@ -35,50 +35,85 @@ export class AIChatBotService {
   }
 
   /**
-   * Send a message to the AI chatbot
+   * Send a message to the n8n AI chatbot
    */
   async sendMessage(message: string): Promise<ChatServiceResponse<string>> {
     try {
-      console.log('AIChatBotService: Sending message to:', this.apiUrl);
+      console.log('AIChatBotService: Sending message to n8n:', this.apiUrl);
+      console.log('AIChatBotService: Message:', message);
+      
+      // n8n chat webhooks typically expect one of these formats:
+      // Try common n8n chat webhook formats
+      const requestBody = {
+        chatInput: message,  // Common for n8n AI chat
+        message: message,
+        question: message,
+        input: message,
+        text: message
+      };
+      
+      console.log('AIChatBotService: Request body:', JSON.stringify(requestBody, null, 2));
       
       const response = await fetch(this.apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json',
         },
-        body: JSON.stringify({
-          message: message,
-        }),
+        body: JSON.stringify(requestBody),
       });
 
       console.log('AIChatBotService: Response status:', response.status);
+      console.log('AIChatBotService: Response headers:', Object.fromEntries(response.headers.entries()));
+
+      // Get response text first
+      const responseText = await response.text();
+      console.log('AIChatBotService: Raw response:', responseText);
 
       if (!response.ok) {
-        const errorText = await response.text();
-        console.error('AIChatBotService: Error response:', errorText);
+        console.error('AIChatBotService: Error response:', responseText);
         return {
           success: false,
           error: `HTTP ${response.status}`,
-          message: 'Failed to get response from AI chatbot',
+          message: responseText || 'Failed to get response from AI chatbot',
         };
       }
 
       // Try to parse JSON response
-      const data = await response.json();
-      console.log('AIChatBotService: Response data:', data);
+      let data;
+      try {
+        data = JSON.parse(responseText);
+      } catch (e) {
+        // If not JSON, treat as plain text response
+        console.log('AIChatBotService: Response is plain text, not JSON');
+        return {
+          success: true,
+          data: responseText,
+        };
+      }
 
-      // Handle different response formats
+      console.log('AIChatBotService: Parsed response data:', data);
+
+      // Handle different n8n response formats
       let aiResponse: string;
       
       if (typeof data === 'string') {
         aiResponse = data;
+      } else if (data.output) {
+        // n8n AI Agent output
+        aiResponse = data.output;
       } else if (data.response) {
         aiResponse = data.response;
+      } else if (data.text) {
+        aiResponse = data.text;
       } else if (data.message) {
         aiResponse = data.message;
       } else if (data.data) {
         aiResponse = data.data;
+      } else if (data.answer) {
+        aiResponse = data.answer;
       } else {
+        console.warn('AIChatBotService: Unknown response format, stringifying:', data);
         aiResponse = JSON.stringify(data);
       }
 
