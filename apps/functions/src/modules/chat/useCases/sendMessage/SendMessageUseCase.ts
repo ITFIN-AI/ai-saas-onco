@@ -6,9 +6,7 @@ import { SendMessageError } from './SendMessageErrors';
 import { ChatSessionDocument, ChatMessage } from '@akademiasaas/shared';
 
 export class SendMessageUseCase {
-  private readonly N8N_WEBHOOK_URL =
-    process.env.N8N_WEBHOOK_URL ||
-    'https://aiforyou.agency/webhook/efbc64f9-36f3-415d-b219-49bfd55d1a59/chat';
+  private readonly N8N_WEBHOOK_URL = process.env.N8N_WEBHOOK_URL ;
   private readonly USE_MOCK_AI = process.env.USE_MOCK_AI === 'true';
 
   async execute(dto: SendMessageDTO): Promise<{ messageId: string; response: string }> {
@@ -27,8 +25,8 @@ export class SendMessageUseCase {
       // Save user message
       await this.saveMessage(session.id, userMessage);
 
-      // Call n8n webhook
-      const aiResponse = await this.callN8nWebhook(dto.message);
+      // Call n8n webhook with session context
+      const aiResponse = await this.callN8nWebhook(dto.message, dto.sessionId, dto.email);
 
       // Add AI response to session
       const aiMessage: ChatMessage = {
@@ -149,12 +147,9 @@ export class SendMessageUseCase {
     }
   }
 
-  private async callN8nWebhook(message: string): Promise<string> {
-    // Use mock AI response in development if configured
-    if (this.USE_MOCK_AI) {
-      console.log('Using mock AI response for development');
-
-      return `Mock AI response to: "${message}". This is a simulated response for development. Configure N8N_WEBHOOK_URL environment variable to use a real AI service.`;
+  private async callN8nWebhook(message: string, sessionId: string, email: string): Promise<string> {
+    if (!this.N8N_WEBHOOK_URL) {
+      throw new Error('N8N_WEBHOOK_URL is not configured');
     }
 
     try {
@@ -162,11 +157,9 @@ export class SendMessageUseCase {
       const requestBody = {
         action: 'sendMessage',
         chatInput: message,
-        sessionId: 'default',
+        sessionId: sessionId,
+        email: email,
       };
-
-      console.log('Calling n8n webhook:', this.N8N_WEBHOOK_URL);
-      console.log('Request body:', requestBody);
 
       const response = await fetch(this.N8N_WEBHOOK_URL, {
         method: 'POST',
@@ -176,11 +169,9 @@ export class SendMessageUseCase {
         body: JSON.stringify(requestBody),
       });
 
-      console.log('Webhook response status:', response.status);
 
       // Try to get response text regardless of status
       const responseText = await response.text();
-      console.log('Webhook response body:', responseText);
 
       if (!response.ok) {
         console.error(`Webhook returned error status: ${response.status}`);

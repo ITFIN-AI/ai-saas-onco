@@ -29,7 +29,7 @@ export class ChatService {
     
     if (isEmulator) {
       // Development with Firebase emulator
-      this.baseUrl = 'http://localhost:5001/ai-oncology/europe-central2';
+      this.baseUrl = 'http://localhost:5001/';
     } else if (import.meta.env.VITE_FUNCTION_DOMAIN) {
       // Custom domain from environment variable
       this.baseUrl = import.meta.env.VITE_FUNCTION_DOMAIN;

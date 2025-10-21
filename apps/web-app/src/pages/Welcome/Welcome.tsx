@@ -238,7 +238,7 @@ const Welcome: React.FC = () => {
               </div>
 
               <div className="chat-interface-container">
-                <SimpleChatInterface />
+                <SimpleChatInterface email={formData.email} />
               </div>
             </div>
           )}

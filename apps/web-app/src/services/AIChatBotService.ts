@@ -32,7 +32,7 @@ export class AIChatBotService {
 
   constructor() {
     // Direct connection to AI chatbot
-    this.apiUrl = 'https://aiforyou.agency/webhook/efbc64f9-36f3-415d-b219-49bfd55d1a59/chat';
+    this.apiUrl = 'https://aiforyou.agency/webhook/c96c6980-2b2a-4143-af67-c83677e257b2/chat';
   }
 
   /**
@@ -40,13 +40,9 @@ export class AIChatBotService {
    */
   async sendMessage(message: string): Promise<ChatServiceResponse<string>> {
     try {
-      console.log('AIChatBotService: Sending message to n8n:', this.apiUrl);
-      console.log('AIChatBotService: Message:', message);
-      
       // Generate or reuse session ID for conversation continuity
       if (!this.sessionId) {
         this.sessionId = this.generateSessionId();
-        console.log('AIChatBotService: Generated new session ID:', this.sessionId);
       }
       
       // n8n AI Agent Chat typically expects:
@@ -57,7 +53,6 @@ export class AIChatBotService {
         sessionId: this.sessionId,
       };
       
-      console.log('AIChatBotService: Request body:', JSON.stringify(requestBody, null, 2));
       
       const response = await fetch(this.apiUrl, {
         method: 'POST',
@@ -68,12 +63,9 @@ export class AIChatBotService {
         body: JSON.stringify(requestBody),
       });
 
-      console.log('AIChatBotService: Response status:', response.status);
-      console.log('AIChatBotService: Response headers:', Object.fromEntries(response.headers.entries()));
 
       // Get response text first
       const responseText = await response.text();
-      console.log('AIChatBotService: Raw response:', responseText);
 
       if (!response.ok) {
         console.error('AIChatBotService: Error response:', responseText);
@@ -90,14 +82,12 @@ export class AIChatBotService {
         data = JSON.parse(responseText);
       } catch (e) {
         // If not JSON, treat as plain text response
-        console.log('AIChatBotService: Response is plain text, not JSON');
         return {
           success: true,
           data: responseText,
         };
       }
 
-      console.log('AIChatBotService: Parsed response data:', data);
 
       // Handle different n8n response formats
       let aiResponse: string;
@@ -113,10 +103,20 @@ export class AIChatBotService {
         aiResponse = data.text;
       } else if (data.message) {
         aiResponse = data.message;
-      } else if (data.data) {
-        aiResponse = data.data;
       } else if (data.answer) {
         aiResponse = data.answer;
+      } else if (data.data?.translations?.[0]?.translatedText) {
+        // Handle nested structure: {"data":{"translations":[{"translatedText":"..."}]}}
+        aiResponse = data.data.translations[0].translatedText;
+      } else if (data.translations?.[0]?.translatedText) {
+        // Handle flat structure: {"translations":[{"translatedText":"..."}]}
+        aiResponse = data.translations[0].translatedText;
+      } else if (data.data && typeof data.data === 'string') {
+        // Handle if data.data is a string
+        aiResponse = data.data;
+      } else if (data.data) {
+        // Fallback: stringify nested data
+        aiResponse = JSON.stringify(data.data);
       } else {
         console.warn('AIChatBotService: Unknown response format, stringifying:', data);
         aiResponse = JSON.stringify(data);
@@ -149,7 +149,6 @@ export class AIChatBotService {
    * Reset the current session (start a new conversation)
    */
   resetSession(): void {
-    console.log('AIChatBotService: Resetting session');
     this.sessionId = null;
   }
 
