@@ -48,9 +48,7 @@ const firebaseConfig = JSON.parse(fs.readFileSync(FIREBASERC_PATH, 'utf8'));
 // Debug: Print available projects
 console.log('Available projects in .firebaserc:', JSON.stringify(firebaseConfig.projects, null, 2));
 
-// Get the current Firebase project ID from environment variable
-// Trim whitespace and quotes that might have been accidentally included
-let currentProjectId = process.env.GCLOUD_PROJECT;
+const currentProjectId = 'ai-saas-oncology';
 
 if (!currentProjectId) {
   console.error('Error: GCLOUD_PROJECT environment variable is not set');
