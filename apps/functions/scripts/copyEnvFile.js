@@ -17,20 +17,49 @@ if (!fs.existsSync(DEST_DIR)) {
 }
 
 // Get project configuration from .firebaserc (which is two directories up)
-const FIREBASERC_PATH = path.resolve('../../.firebaserc');
+// Try multiple possible locations for .firebaserc
+let FIREBASERC_PATH = null;
+const possiblePaths = [
+  path.resolve('../../.firebaserc'),  // From apps/functions (monorepo structure)
+  path.resolve('../.firebaserc'),     // From apps (if running from different location)
+  path.resolve('.firebaserc'),        // Current directory
+  path.resolve('/app/.firebaserc'),   // Docker root location
+];
+
+for (const tryPath of possiblePaths) {
+  if (fs.existsSync(tryPath)) {
+    FIREBASERC_PATH = tryPath;
+    break;
+  }
+}
+
+if (!FIREBASERC_PATH) {
+  console.error('Error: Could not find .firebaserc file');
+  console.error('Tried the following paths:');
+  possiblePaths.forEach(p => console.error(`  - ${p}`));
+  process.exit(1);
+}
+
 console.log(`Using .firebaserc at: ${FIREBASERC_PATH}`);
 
 // Get project configurations
 const firebaseConfig = JSON.parse(fs.readFileSync(FIREBASERC_PATH, 'utf8'));
 
+// Debug: Print available projects
+console.log('Available projects in .firebaserc:', JSON.stringify(firebaseConfig.projects, null, 2));
+
 // Get the current Firebase project ID from environment variable
-const currentProjectId = process.env.GCLOUD_PROJECT;
+// Trim whitespace and quotes that might have been accidentally included
+let currentProjectId = process.env.GCLOUD_PROJECT;
 
 if (!currentProjectId) {
   console.error('Error: GCLOUD_PROJECT environment variable is not set');
   console.error('This is typically set automatically by Firebase when deploying');
   process.exit(1);
 }
+
+// Clean up the project ID - remove quotes and whitespace
+currentProjectId = currentProjectId.trim().replace(/^['"]|['"]$/g, '');
 
 console.log(`Current Firebase project ID: ${currentProjectId}`);
 
@@ -46,7 +75,11 @@ for (const [alias, projectId] of Object.entries(firebaseConfig.projects)) {
 // Exit if environment can't be determined
 if (!currentEnv) {
   console.error(`Error: Could not determine environment for project ID: ${currentProjectId}`);
-  console.error('Make sure the project ID is defined in .firebaserc under "projects"');
+  console.error('Available projects in .firebaserc:');
+  for (const [alias, projectId] of Object.entries(firebaseConfig.projects)) {
+    console.error(`  - ${alias}: ${projectId}`);
+  }
+  console.error('Make sure the project ID matches one of the values above');
   process.exit(1);
 }
 

@@ -8,11 +8,11 @@ import { EnvConfig } from '../shared/infra/types';
 // Check if we're running in the emulator
 const isEmulator = process.env.FIRESTORE_EMULATOR_HOST !== undefined;
 
-if (isEmulator) {
-  functions.logger.info(
-    `Running in emulator mode - Firestore emulator at ${process.env.FIRESTORE_EMULATOR_HOST}`
-  );
-}
+// if (isEmulator) {
+//   functions.logger.info(
+//     `Running in emulator mode - Firestore emulator at ${process.env.FIRESTORE_EMULATOR_HOST}`
+//   );
+// }
 
 // Initialize Firebase Admin
 const app = !getApps().length

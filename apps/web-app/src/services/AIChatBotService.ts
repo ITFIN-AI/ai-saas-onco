@@ -32,7 +32,7 @@ export class AIChatBotService {
 
   constructor() {
     // Direct connection to AI chatbot
-    this.apiUrl = 'https://aiforyou.agency/webhook/c96c6980-2b2a-4143-af67-c83677e257b2/chat';
+    this.apiUrl = 'https://aiforyou.agency/webhook/efbc64f9-36f3-415d-b219-49bfd55d1a59/chat';
   }
 
   /**

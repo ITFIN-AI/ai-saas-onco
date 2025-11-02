@@ -157,7 +157,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
           <div className="chat-empty">
             <RobotOutlined className="empty-icon" />
             <Text type="secondary">
-              Rozpocznij rozmowę z asystentem AI. Zadaj pytanie dotyczące diagnostyki onkologicznej.
+              Rozpocznij rozmowę z asystentem AI. Zadaj pytanie dotyczące radioterapii.
             </Text>
           </div>
         ) : (
@@ -218,7 +218,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
           value={inputMessage}
           onChange={(e) => setInputMessage(e.target.value)}
           onKeyPress={handleKeyPress}
-          placeholder="Zadaj pytanie dotyczące diagnostyki onkologicznej..."
+          placeholder="Zadaj pytanie dotyczące radioterapii..."
           rows={2}
           disabled={isLoading}
           className="message-input"

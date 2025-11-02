@@ -18,12 +18,23 @@ console.log(`Using .firebaserc at: ${FIREBASERC_PATH}`);
 const firebaseConfig = JSON.parse(fs.readFileSync(FIREBASERC_PATH, 'utf8'));
 
 // Get the current Firebase project ID from environment variable
-const currentProjectId = process.env.GCLOUD_PROJECT;
+// If not set, try to use BUILD_ENV or default to 'develop'
+let currentProjectId = process.env.GCLOUD_PROJECT;
 
 if (!currentProjectId) {
-  console.error('Error: GCLOUD_PROJECT environment variable is not set');
-  console.error('This is typically set automatically by Firebase when deploying');
-  process.exit(1);
+  const buildEnv = process.env.BUILD_ENV || 'develop';
+  console.warn(`Warning: GCLOUD_PROJECT environment variable is not set`);
+  console.warn(`Using BUILD_ENV=${buildEnv} to determine project ID`);
+  
+  // Get project ID from .firebaserc using the environment alias
+  if (firebaseConfig.projects[buildEnv]) {
+    currentProjectId = firebaseConfig.projects[buildEnv];
+    console.log(`Resolved project ID from ${buildEnv}: ${currentProjectId}`);
+  } else {
+    console.error(`Error: Could not find project for environment: ${buildEnv}`);
+    console.error(`Available environments: ${Object.keys(firebaseConfig.projects).join(', ')}`);
+    process.exit(1);
+  }
 }
 
 console.log(`Current Firebase project ID: ${currentProjectId}`);
