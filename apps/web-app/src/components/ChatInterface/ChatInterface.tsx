@@ -3,6 +3,7 @@ import { Button, Input, Typography, Spin, Alert, Card, Avatar } from 'antd';
 import { SendOutlined, UserOutlined, RobotOutlined } from '@ant-design/icons';
 import { ChatMessage } from '@akademiasaas/shared';
 import { chatService, SendMessageRequest } from '../../services/ChatService';
+import { aiChatBotService } from '../../services/AIChatBotService';
 import './ChatInterface.scss';
 
 const { TextArea } = Input;
@@ -63,9 +64,11 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
   const handleSendMessage = async () => {
     if (!inputMessage.trim() || isLoading) return;
 
+    const messageToSend = inputMessage.trim();
+
     const userMessage: ChatMessage = {
       id: `user_${Date.now()}`,
-      content: inputMessage.trim(),
+      content: messageToSend,
       role: 'user',
       timestamp: new Date(),
     };
@@ -76,9 +79,38 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
     setIsLoading(true);
     setError(null);
 
+    const attemptDirectAIResponse = async (): Promise<ChatMessage | null> => {
+      try {
+        const fallback = await aiChatBotService.sendMessage(messageToSend, {
+          email,
+        });
+
+        if (fallback.success && fallback.data) {
+          return {
+            id: `ai_${Date.now()}`,
+            content: fallback.data,
+            role: 'assistant',
+            timestamp: new Date(),
+          };
+        }
+
+        console.error('AIChatBotService fallback error:', fallback);
+        setError(fallback.message || 'Failed to get response from AI');
+        return null;
+      } catch (fallbackError) {
+        console.error('AIChatBotService fallback exception:', fallbackError);
+        setError('Failed to get response from AI');
+        return null;
+      }
+    };
+
+    const appendAssistantMessage = (message: ChatMessage) => {
+      setMessages(prev => [...prev, message]);
+    };
+
     try {
       const request: SendMessageRequest = {
-        message: inputMessage.trim(),
+        message: messageToSend,
         email,
         sessionId,
       };
@@ -93,17 +125,20 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
           timestamp: new Date(),
         };
 
-        setMessages(prev => [...prev, aiMessage]);
+        appendAssistantMessage(aiMessage);
       } else {
-        setError(response.message || 'Failed to send message');
-        // Remove the user message if sending failed
-        setMessages(prev => prev.filter(msg => msg.id !== userMessage.id));
+        console.warn('ChatService error, falling back to AIChatBotService:', response);
+        const fallbackMessage = await attemptDirectAIResponse();
+        if (fallbackMessage) {
+          appendAssistantMessage(fallbackMessage);
+        }
       }
     } catch (err) {
-      console.error('Failed to send message:', err);
-      setError('Failed to send message. Please try again.');
-      // Remove the user message if sending failed
-      setMessages(prev => prev.filter(msg => msg.id !== userMessage.id));
+      console.error('ChatService sendMessage exception, falling back to AIChatBotService:', err);
+      const fallbackMessage = await attemptDirectAIResponse();
+      if (fallbackMessage) {
+        appendAssistantMessage(fallbackMessage);
+      }
     } finally {
       setIsLoading(false);
     }
