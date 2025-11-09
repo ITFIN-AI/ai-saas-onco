@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Button, Input, Typography, Spin, Alert, Avatar } from 'antd';
 import { SendOutlined, UserOutlined, RobotOutlined } from '@ant-design/icons';
-import { aiChatBotService, ChatMessage } from '../../services/AIChatBotService';
+import { ChatMessage } from '@akademiasaas/shared';
+import { chatService, SendMessageRequest } from '../../services/ChatService';
 import './ChatInterface.scss';
 
 const { TextArea } = Input;
@@ -19,7 +20,12 @@ const SimpleChatInterface: React.FC<SimpleChatInterfaceProps> = ({
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isHistoryLoading, setIsHistoryLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [sessionId, setSessionId] = useState(() => {
+    const fallbackEmail = email ?? 'anonymous@ai-saas.local';
+    return chatService.generateSessionId(fallbackEmail);
+  });
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -30,8 +36,46 @@ const SimpleChatInterface: React.FC<SimpleChatInterfaceProps> = ({
     scrollToBottom();
   }, [messages]);
 
+  useEffect(() => {
+    if (!email) {
+      setMessages([]);
+      setIsHistoryLoading(false);
+      return;
+    }
+
+    const nextSessionId = chatService.generateSessionId(email);
+    setSessionId(nextSessionId);
+    setMessages([]);
+
+    const loadChatHistory = async () => {
+      setIsHistoryLoading(true);
+      setError(null);
+
+      try {
+        const response = await chatService.getChatHistory(nextSessionId, email);
+
+        if (response.success && response.data) {
+          setMessages(response.data.messages || []);
+        } else {
+          setMessages([]);
+        }
+      } catch (historyError) {
+        console.error('Failed to load chat history:', historyError);
+        setMessages([]);
+      } finally {
+        setIsHistoryLoading(false);
+      }
+    };
+
+    loadChatHistory();
+  }, [email, onNewMessage]);
+
   const handleSendMessage = async () => {
     if (!inputMessage.trim() || isLoading) return;
+    if (!email) {
+      setError('Podaj adres email, aby rozpocząć rozmowę.');
+      return;
+    }
 
     const userMessage: ChatMessage = {
       id: `user_${Date.now()}`,
@@ -50,12 +94,18 @@ const SimpleChatInterface: React.FC<SimpleChatInterfaceProps> = ({
     setError(null);
 
     try {
-      const response = await aiChatBotService.sendMessage(messageToSend, { email });
+      const request: SendMessageRequest = {
+        message: messageToSend,
+        email,
+        sessionId,
+      };
+
+      const response = await chatService.sendMessage(request);
 
       if (response.success && response.data) {
         const aiMessage: ChatMessage = {
-          id: `ai_${Date.now()}`,
-          content: response.data,
+          id: response.data.messageId,
+          content: response.data.response,
           role: 'assistant',
           timestamp: new Date(),
         };
@@ -87,6 +137,17 @@ const SimpleChatInterface: React.FC<SimpleChatInterfaceProps> = ({
       minute: '2-digit',
     });
   };
+
+  if (isHistoryLoading) {
+    return (
+      <div className="chat-interface">
+        <div className="chat-loading">
+          <Spin size="large" />
+          <Text>Ładowanie historii czatu...</Text>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="chat-interface">
@@ -171,9 +232,9 @@ const SimpleChatInterface: React.FC<SimpleChatInterfaceProps> = ({
           value={inputMessage}
           onChange={(e) => setInputMessage(e.target.value)}
           onKeyPress={handleKeyPress}
-          placeholder="Zadaj pytanie dotyczące radioterapii..."
+          placeholder={email ? 'Zadaj pytanie dotyczące radioterapii...' : 'Podaj email, aby rozpocząć rozmowę'}
           rows={2}
-          disabled={isLoading}
+          disabled={isLoading || !email}
           className="message-input"
         />
         <Button
@@ -181,7 +242,7 @@ const SimpleChatInterface: React.FC<SimpleChatInterfaceProps> = ({
           icon={<SendOutlined />}
           onClick={handleSendMessage}
           loading={isLoading}
-          disabled={!inputMessage.trim()}
+          disabled={!inputMessage.trim() || !email}
           className="send-button"
         >
           Wyślij
