@@ -19,7 +19,7 @@ const firebaseConfig = JSON.parse(fs.readFileSync(FIREBASERC_PATH, 'utf8'));
 
 // Get the current Firebase project ID from environment variable
 // If not set, try to use BUILD_ENV or default to 'develop'
-let currentProjectId = process.env.GCLOUD_PROJECT;
+let currentProjectId = 'ai-oncology'; //process.env.GCLOUD_PROJECT;
 
 if (!currentProjectId) {
   const buildEnv = process.env.BUILD_ENV || 'develop';

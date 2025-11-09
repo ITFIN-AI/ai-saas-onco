@@ -50,12 +50,21 @@ console.log('Available projects in .firebaserc:', JSON.stringify(firebaseConfig.
 
 // Get the current Firebase project ID from environment variable
 // Trim whitespace and quotes that might have been accidentally included
-let currentProjectId = process.env.GCLOUD_PROJECT;
+let currentProjectId = 'ai-oncology';
 
 if (!currentProjectId) {
-  console.error('Error: GCLOUD_PROJECT environment variable is not set');
-  console.error('This is typically set automatically by Firebase when deploying');
-  process.exit(1);
+  const buildEnv = process.env.BUILD_ENV || 'develop';
+  console.warn('Warning: GCLOUD_PROJECT environment variable is not set');
+  console.warn(`Attempting to resolve project ID using BUILD_ENV=${buildEnv}`);
+
+  if (firebaseConfig.projects[buildEnv]) {
+    currentProjectId = firebaseConfig.projects[buildEnv];
+    console.log(`Resolved project ID from ${buildEnv}: ${currentProjectId}`);
+  } else {
+    console.error(`Error: Could not find project for environment: ${buildEnv}`);
+    console.error(`Available environments: ${Object.keys(firebaseConfig.projects).join(', ')}`);
+    process.exit(1);
+  }
 }
 
 // Clean up the project ID - remove quotes and whitespace

@@ -26,6 +26,10 @@ export interface ChatServiceResponse<T> {
   message?: string;
 }
 
+interface SendMessageMetadata {
+  email?: string;
+}
+
 export class AIChatBotService {
   private apiUrl: string;
   private sessionId: string | null = null;
@@ -38,7 +42,7 @@ export class AIChatBotService {
   /**
    * Send a message to the n8n AI chatbot
    */
-  async sendMessage(message: string): Promise<ChatServiceResponse<string>> {
+  async sendMessage(message: string, metadata: SendMessageMetadata = {}): Promise<ChatServiceResponse<string>> {
     try {
       // Generate or reuse session ID for conversation continuity
       if (!this.sessionId) {
@@ -51,6 +55,7 @@ export class AIChatBotService {
       const requestBody = {
         chatInput: message,
         sessionId: this.sessionId,
+        ...metadata,
       };
       
       

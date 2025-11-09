@@ -11,6 +11,7 @@
     "precommit": "pnpm check-deps  && lerna run --concurrency 1 --stream precommit &&  pnpm check-types && pnpm test",
     "prepare": "node scripts/prepare.js",
     "preinstall": "npx only-allow pnpm",
+    "approve-builds": "node scripts/approve-builds.js",
     "test": "vitest run --passWithNoTests",
     "test:watch": "vitest",
     "check-types": "turbo check-types --continue --cache-dir=.turbo"

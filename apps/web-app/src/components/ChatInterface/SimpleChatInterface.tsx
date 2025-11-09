@@ -9,10 +9,12 @@ const { Text, Paragraph } = Typography;
 
 interface SimpleChatInterfaceProps {
   onNewMessage?: (message: ChatMessage) => void;
+  email?: string;
 }
 
 const SimpleChatInterface: React.FC<SimpleChatInterfaceProps> = ({ 
-  onNewMessage 
+  onNewMessage,
+  email
 }) => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [inputMessage, setInputMessage] = useState('');
@@ -48,7 +50,7 @@ const SimpleChatInterface: React.FC<SimpleChatInterfaceProps> = ({
     setError(null);
 
     try {
-      const response = await aiChatBotService.sendMessage(messageToSend);
+      const response = await aiChatBotService.sendMessage(messageToSend, { email });
 
       if (response.success && response.data) {
         const aiMessage: ChatMessage = {
