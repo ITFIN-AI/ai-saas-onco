@@ -45,9 +45,60 @@ export class ChatService {
     this.baseUrl = '/api';
   }
 
+  private async handleResponse<T>(response: Response): Promise<ChatServiceResponse<T>> {
+    const contentType = response.headers.get('content-type') ?? '';
+    const responseText = await response.text();
+
+    let parsedBody: unknown;
+
+    if (contentType.includes('application/json')) {
+      try {
+        parsedBody = responseText ? JSON.parse(responseText) : {};
+      } catch (error) {
+        console.error('ChatService: Failed to parse JSON response', {
+          error,
+          responseText,
+        });
+      }
+    }
+
+    if (!response.ok) {
+      const errorPayload = parsedBody as { error?: string; message?: string } | undefined;
+
+      const errorMessage = (errorPayload?.message ?? responseText) || 'Unknown error occurred';
+
+      return {
+        success: false,
+        error: errorPayload?.error ?? `HTTP_${response.status}`,
+        message: errorMessage,
+      };
+    }
+
+    if (parsedBody && typeof parsedBody === 'object' && 'data' in parsedBody) {
+      return {
+        success: true,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        data: (parsedBody as any).data,
+      };
+    }
+
+    console.error('ChatService: Unexpected success response format', {
+      responseText,
+      contentType,
+      status: response.status,
+    });
+
+    return {
+      success: false,
+      error: 'INVALID_RESPONSE',
+      message: 'Unexpected response format from chat service',
+    };
+  }
+
   async sendMessage(request: SendMessageRequest): Promise<ChatServiceResponse<SendMessageResponse>> {
     try {
-      const response = await fetch(`${this.baseUrl}/chat/sendMessage`, {
+      const url = `${this.baseUrl}/chat/sendMessage`;
+      const response = await fetch(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -55,22 +106,10 @@ export class ChatService {
         body: JSON.stringify(request),
       });
 
-      const data = await response.json();
-      
-      if (!response.ok) {
-        return {
-          success: false,
-          error: data.error || 'Failed to send message',
-          message: data.message || 'Unknown error occurred',
-        };
-      }
-
-      return {
-        success: true,
-        data: data.data,
-      };
+      return await this.handleResponse<SendMessageResponse>(response);
     } catch (error) {
       console.error('ChatService.sendMessage error:', error);
+      console.error('ChatService.sendMessage baseUrl:', this.baseUrl);
       return {
         success: false,
         error: 'NETWORK_ERROR',
@@ -81,29 +120,18 @@ export class ChatService {
 
   async getChatHistory(sessionId: string, email: string): Promise<ChatServiceResponse<ChatSessionDocument>> {
     try {
-      const response = await fetch(`${this.baseUrl}/chat/getChatHistory/${sessionId}?email=${encodeURIComponent(email)}`, {
+      const url = `${this.baseUrl}/chat/getChatHistory/${sessionId}?email=${encodeURIComponent(email)}`;
+      const response = await fetch(url, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
         },
       });
 
-      const data = await response.json();
-      
-      if (!response.ok) {
-        return {
-          success: false,
-          error: data.error || 'Failed to get chat history',
-          message: data.message || 'Unknown error occurred',
-        };
-      }
-
-      return {
-        success: true,
-        data: data.data,
-      };
+      return await this.handleResponse<ChatSessionDocument>(response);
     } catch (error) {
       console.error('ChatService.getChatHistory error:', error);
+      console.error('ChatService.getChatHistory baseUrl:', this.baseUrl);
       return {
         success: false,
         error: 'NETWORK_ERROR',
@@ -132,21 +160,13 @@ export class ChatService {
       });
       console.log('ChatService: Response headers:', headers);
 
-      const data = await response.json();
-      
-      if (!response.ok) {
-        console.error('ChatService: Response not ok:', data);
-        return {
-          success: false,
-          error: data.error || 'Failed to get chat history',
-          message: data.message || 'Unknown error occurred',
-        };
+      const handledResponse = await this.handleResponse<ChatHistoryDocument>(response);
+
+      if (!handledResponse.success) {
+        console.error('ChatService: Response not ok:', handledResponse);
       }
 
-      return {
-        success: true,
-        data: data.data,
-      };
+      return handledResponse;
     } catch (error) {
       console.error('ChatService.getChatHistoryFromPostgres error:', error);
       console.error('ChatService: Base URL was:', this.baseUrl);
