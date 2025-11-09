@@ -22,21 +22,27 @@ export class ChatService {
   private baseUrl: string;
 
   constructor() {
-    // Use Firebase Functions URL based on environment
-    // - Emulator: localhost with project ID and region
-    // - Production: use nginx proxy at /api/chat
-    const isEmulator = import.meta.env.VITE_FIREBASE_EMULATOR === 'true';
-    
-    if (isEmulator) {
-      // Development with Firebase emulator
-      this.baseUrl = 'http://localhost:5001/';
-    } else if (import.meta.env.VITE_FUNCTION_DOMAIN) {
-      // Custom domain from environment variable
-      this.baseUrl = import.meta.env.VITE_FUNCTION_DOMAIN;
-    } else {
-      // Production: use nginx proxy (relative path)
-      this.baseUrl = '/api';
+    const normalizeBaseUrl = (url: string) => url.replace(/\/+$/, '');
+
+    const isEmulatorFlagEnabled = import.meta.env.VITE_FIREBASE_EMULATOR === 'true';
+
+    const isLocalhost =
+      typeof window !== 'undefined' &&
+      ['localhost', '127.0.0.1'].includes(window.location.hostname);
+
+    if (isEmulatorFlagEnabled && isLocalhost) {
+      const emulatorHost =
+        import.meta.env.VITE_FUNCTIONS_EMULATOR_HOST ?? 'http://localhost:5001';
+      this.baseUrl = normalizeBaseUrl(emulatorHost);
+      return;
     }
+
+    if (import.meta.env.VITE_FUNCTION_DOMAIN) {
+      this.baseUrl = normalizeBaseUrl(import.meta.env.VITE_FUNCTION_DOMAIN);
+      return;
+    }
+
+    this.baseUrl = '/api';
   }
 
   async sendMessage(request: SendMessageRequest): Promise<ChatServiceResponse<SendMessageResponse>> {
