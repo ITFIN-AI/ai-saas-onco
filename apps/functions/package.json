@@ -21,6 +21,7 @@
     "@google-cloud/tasks": "^3.0.5",
     "@mailchimp/mailchimp_marketing": "^3.0.52",
     "@notionhq/client": "^0.4.6",
+    "@reduxjs/toolkit": "^1.9.7",
     "@sendgrid/mail": "^7.4.0",
     "@types/facebook-nodejs-business-sdk": "^20.0.2",
     "@types/joi": "^14.3.4",
